@@ -2,17 +2,8 @@
 
 import UIKit
 
-class ImagesListViewController: UIViewController {
+final class ImagesListViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-       
-        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        
-        
-        
-    }
     
     private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     
@@ -22,6 +13,16 @@ class ImagesListViewController: UIViewController {
         formatter.timeStyle = .none
         return formatter
     }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+       
+        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
 
 extension ImagesListViewController: UITableViewDataSource {
