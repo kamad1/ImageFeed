@@ -17,6 +17,7 @@
 		81F53B3B2A5B39C000BCB33C /* ImageFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F53B3A2A5B39C000BCB33C /* ImageFeedUITests.swift */; };
 		81F53B3D2A5B39C000BCB33C /* ImageFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F53B3C2A5B39C000BCB33C /* ImageFeedUITestsLaunchTests.swift */; };
 		81F53B4A2A5B4EB200BCB33C /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F53B492A5B4EB200BCB33C /* ImagesListCell.swift */; };
+		81F53B8A2A687B9F00BCB33C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F53B892A687B9F00BCB33C /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		81F53B3A2A5B39C000BCB33C /* ImageFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedUITests.swift; sourceTree = "<group>"; };
 		81F53B3C2A5B39C000BCB33C /* ImageFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		81F53B492A5B4EB200BCB33C /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
+		81F53B892A687B9F00BCB33C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				81F53B192A5B39BF00BCB33C /* AppDelegate.swift */,
 				81F53B1B2A5B39BF00BCB33C /* SceneDelegate.swift */,
+				81F53B882A687B6900BCB33C /* Profile */,
 				81F53B4B2A5B4EF800BCB33C /* ImagesList */,
 				81F53B1F2A5B39BF00BCB33C /* Main.storyboard */,
 				81F53B222A5B39C000BCB33C /* Assets.xcassets */,
@@ -136,6 +139,14 @@
 				81F53B492A5B4EB200BCB33C /* ImagesListCell.swift */,
 			);
 			path = ImagesList;
+			sourceTree = "<group>";
+		};
+		81F53B882A687B6900BCB33C /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				81F53B892A687B9F00BCB33C /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,6 +282,7 @@
 			files = (
 				81F53B1E2A5B39BF00BCB33C /* ImagesListViewController.swift in Sources */,
 				81F53B4A2A5B4EB200BCB33C /* ImagesListCell.swift in Sources */,
+				81F53B8A2A687B9F00BCB33C /* ProfileViewController.swift in Sources */,
 				81F53B1A2A5B39BF00BCB33C /* AppDelegate.swift in Sources */,
 				81F53B1C2A5B39BF00BCB33C /* SceneDelegate.swift in Sources */,
 			);
