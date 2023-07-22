@@ -107,8 +107,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ls6-QZ-1F8">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="lIf-i0-PyD">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="132"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="393" placeholderIntrinsicHeight="393" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="lIf-i0-PyD">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="393"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -135,6 +135,14 @@
                                     <action selector="didTapBackButton" destination="ytv-CU-s1o" eventType="touchUpInside" id="wXa-Rs-FqX"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" pointerInteraction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S9f-UG-Poq">
+                                <rect key="frame" x="171.66666666666666" y="766" width="50" height="50"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="share_button"/>
+                                <connections>
+                                    <action selector="didTapShareButton:" destination="ytv-CU-s1o" eventType="touchUpInside" id="6QY-ix-sil"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="C2h-jc-G4L"/>
                         <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
@@ -144,7 +152,9 @@
                             <constraint firstItem="Ls6-QZ-1F8" firstAttribute="top" secondItem="6I0-Fs-Ui6" secondAttribute="top" id="Ix7-Uc-8ag"/>
                             <constraint firstAttribute="bottom" secondItem="Ls6-QZ-1F8" secondAttribute="bottom" id="Kq3-tx-mYX"/>
                             <constraint firstItem="Ls6-QZ-1F8" firstAttribute="leading" secondItem="C2h-jc-G4L" secondAttribute="leading" id="MFI-eG-0rN"/>
+                            <constraint firstItem="C2h-jc-G4L" firstAttribute="bottom" secondItem="S9f-UG-Poq" secondAttribute="bottom" constant="36" id="T2T-9n-mn1"/>
                             <constraint firstItem="DZb-h9-1S0" firstAttribute="top" secondItem="C2h-jc-G4L" secondAttribute="top" constant="8" id="jZC-oR-1Ux"/>
+                            <constraint firstItem="S9f-UG-Poq" firstAttribute="centerX" secondItem="C2h-jc-G4L" secondAttribute="centerX" id="qYC-Nv-QCL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hg8-5p-w7h"/>
@@ -267,6 +277,7 @@
         <image name="like_button_on" width="42" height="42"/>
         <image name="logout_button" width="24" height="24"/>
         <image name="nav_back_button_white" width="24" height="24"/>
+        <image name="share_button" width="50" height="50"/>
         <image name="tab_editorial_active" width="30" height="30"/>
         <image name="tab_profile_active" width="30" height="30"/>
     </resources>
