@@ -104,9 +104,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="lIf-i0-PyD">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ls6-QZ-1F8">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="lIf-i0-PyD">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="132"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="lIf-i0-PyD" firstAttribute="top" secondItem="Ls6-QZ-1F8" secondAttribute="top" id="1qV-lO-1YB"/>
+                                    <constraint firstItem="lIf-i0-PyD" firstAttribute="leading" secondItem="Ls6-QZ-1F8" secondAttribute="leading" id="Mmf-NX-QEw"/>
+                                    <constraint firstAttribute="trailing" secondItem="lIf-i0-PyD" secondAttribute="trailing" id="eyu-cq-SnG"/>
+                                    <constraint firstAttribute="bottom" secondItem="lIf-i0-PyD" secondAttribute="bottom" id="yUm-Z6-ZDU"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="CNz-wn-48Q"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="u2b-Me-PEV"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ytv-CU-s1o" id="a1W-WL-X42"/>
+                                </connections>
+                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DZb-h9-1S0">
                                 <rect key="frame" x="8" y="8" width="48" height="48"/>
                                 <constraints>
@@ -123,22 +139,23 @@
                         <viewLayoutGuide key="safeArea" id="C2h-jc-G4L"/>
                         <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="lIf-i0-PyD" secondAttribute="bottom" id="3zq-o6-n47"/>
                             <constraint firstItem="DZb-h9-1S0" firstAttribute="leading" secondItem="C2h-jc-G4L" secondAttribute="leading" constant="8" id="7Lz-fV-dMD"/>
-                            <constraint firstAttribute="trailing" secondItem="lIf-i0-PyD" secondAttribute="trailing" id="WUh-Dv-RWX"/>
+                            <constraint firstItem="C2h-jc-G4L" firstAttribute="trailing" secondItem="Ls6-QZ-1F8" secondAttribute="trailing" id="9by-Ul-5iF"/>
+                            <constraint firstItem="Ls6-QZ-1F8" firstAttribute="top" secondItem="6I0-Fs-Ui6" secondAttribute="top" id="Ix7-Uc-8ag"/>
+                            <constraint firstAttribute="bottom" secondItem="Ls6-QZ-1F8" secondAttribute="bottom" id="Kq3-tx-mYX"/>
+                            <constraint firstItem="Ls6-QZ-1F8" firstAttribute="leading" secondItem="C2h-jc-G4L" secondAttribute="leading" id="MFI-eG-0rN"/>
                             <constraint firstItem="DZb-h9-1S0" firstAttribute="top" secondItem="C2h-jc-G4L" secondAttribute="top" constant="8" id="jZC-oR-1Ux"/>
-                            <constraint firstItem="lIf-i0-PyD" firstAttribute="leading" secondItem="6I0-Fs-Ui6" secondAttribute="leading" id="jg8-fT-1T1"/>
-                            <constraint firstItem="lIf-i0-PyD" firstAttribute="top" secondItem="6I0-Fs-Ui6" secondAttribute="top" id="vbN-Ka-Zne"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hg8-5p-w7h"/>
                     <connections>
                         <outlet property="imageView" destination="lIf-i0-PyD" id="V8V-P3-WWa"/>
+                        <outlet property="scrollView" destination="Ls6-QZ-1F8" id="O7g-7T-shF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hlN-gL-GI7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="860" y="-597"/>
+            <point key="canvasLocation" x="858.77862595419845" y="-597.18309859154931"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="UMf-Bm-7i2">
