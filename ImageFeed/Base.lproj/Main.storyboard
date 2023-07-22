@@ -88,7 +88,7 @@
                     <navigationItem key="navigationItem" id="Puj-rc-NST"/>
                     <connections>
                         <outlet property="tableView" destination="E62-kj-Zfk" id="hqJ-42-9fL"/>
-                        <segue destination="ytv-CU-s1o" kind="show" identifier="ShowSingleImage" id="siF-wD-E2L"/>
+                        <segue destination="ytv-CU-s1o" kind="presentation" identifier="ShowSingleImage" id="siF-wD-E2L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -100,11 +100,11 @@
             <objects>
                 <viewController id="ytv-CU-s1o" userLabel="Single Image View Controller" customClass="SingleImageViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6I0-Fs-Ui6">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="lIf-i0-PyD">
-                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="C2h-jc-G4L"/>
