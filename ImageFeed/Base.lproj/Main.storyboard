@@ -101,7 +101,11 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Dcj-fx-eWu">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="0.0" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <tabBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        </tabBarAppearance>
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Z31-ar-dQy"/>
@@ -179,7 +183,7 @@
                             <constraint firstItem="o5f-sc-GWp" firstAttribute="leading" secondItem="N64-bU-DiY" secondAttribute="leading" id="y0B-4i-6j9"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="Active" id="U0L-C3-Z7e"/>
+                    <tabBarItem key="tabBarItem" title="" image="tab_profile_active" id="U0L-C3-Z7e"/>
                     <navigationItem key="navigationItem" id="h4L-is-uay" userLabel="Navigation Item"/>
                     <connections>
                         <outlet property="avatarImageView" destination="Mds-Y4-hsy" id="Qth-OR-nnE"/>
@@ -196,10 +200,10 @@
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
-        <image name="Active" width="30" height="30"/>
         <image name="avatar" width="70" height="70"/>
         <image name="like_button_on" width="42" height="42"/>
         <image name="logout_button" width="24" height="24"/>
         <image name="tab_editorial_active" width="30" height="30"/>
+        <image name="tab_profile_active" width="30" height="30"/>
     </resources>
 </document>
