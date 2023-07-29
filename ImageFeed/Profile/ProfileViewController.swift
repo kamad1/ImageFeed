@@ -52,7 +52,7 @@ final class ProfileViewController: UIViewController {
         
         let button = UIButton.systemButton(
                     with: UIImage(systemName: "ipad.and.arrow.forward")!,
-                    target: ProfileViewController.self,
+                    target: self,
                     action: #selector(Self.didTapLogoutButton)
                 )
         
@@ -122,8 +122,6 @@ final class ProfileViewController: UIViewController {
     
     
     @objc
-    private func didTapLogoutButton() {
-        
-    }
+    private func didTapLogoutButton() {}
     
 }
