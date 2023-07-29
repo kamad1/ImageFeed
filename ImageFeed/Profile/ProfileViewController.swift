@@ -51,7 +51,7 @@ final class ProfileViewController: UIViewController {
     var logoutButton: UIButton = {
         
         let button = UIButton.systemButton(
-                    with: UIImage(systemName: "ipad.and.arrow.forward")!,
+                    with: UIImage(named: "logout_button") ?? UIImage(),
                     target: self,
                     action: #selector(Self.didTapLogoutButton)
                 )
