@@ -77,7 +77,7 @@ extension SingleImageViewController: UIScrollViewDelegate {
 
 
 
-
+// КОД ниже оставил для себя пока как напоминание.
 /*Итак, если нам нужно подменять изображение уже после viewDidLoad, мы можем реализовать обработчик didSet для image следующим образом:
  
  final class SingleImageViewController: UIViewController {

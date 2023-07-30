@@ -3,10 +3,10 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
-   
+    
     private var label: UILabel?
-
-    var avatarImageView: UIImageView = {
+    
+    private var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "avatar")
         imageView.tintColor = .gray
@@ -15,19 +15,19 @@ final class ProfileViewController: UIViewController {
         return imageView
     }()
     
-    var nameLabel: UILabel = {
+    private var nameLabel: UILabel = {
         let labelname = UILabel()
         labelname.text = "Екатерина Новикова"
         labelname.textAlignment = .left
         labelname.textColor = .white
-        labelname.font = .systemFont(ofSize: 23)
+        labelname.font = .systemFont(ofSize: 23, weight: UIFont.Weight.bold)
         labelname.translatesAutoresizingMaskIntoConstraints = false
         
         return labelname
     }()
     
-    var loginNameLabel: UILabel = {
-       let loginLabel = UILabel()
+    private  var loginNameLabel: UILabel = {
+        let loginLabel = UILabel()
         loginLabel.text = "@ekaterina_nov"
         loginLabel.textAlignment = .left
         loginLabel.textColor = .lightGray
@@ -37,8 +37,8 @@ final class ProfileViewController: UIViewController {
         return loginLabel
     }()
     
-    var descriptionLabel: UILabel = {
-       let descriptionText = UILabel()
+    private var descriptionLabel: UILabel = {
+        let descriptionText = UILabel()
         descriptionText.text = "Hello, World!"
         descriptionText.textColor = .white
         descriptionText.font = .systemFont(ofSize: 13)
@@ -48,13 +48,13 @@ final class ProfileViewController: UIViewController {
         return descriptionText
     }()
     
-    var logoutButton: UIButton = {
+    lazy var logoutButton: UIButton = {
         
         let button = UIButton.systemButton(
-                    with: UIImage(named: "logout_button") ?? UIImage(),
-                    target: self,
-                    action: #selector(Self.didTapLogoutButton)
-                )
+            with: UIImage(named: "logout_button") ?? UIImage(),
+            target: self,
+            action: #selector(Self.didTapLogoutButton)
+        )
         
         button.tintColor = #colorLiteral(red: 0.9607843137, green: 0.4196078431, blue: 0.4235294118, alpha: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +67,7 @@ final class ProfileViewController: UIViewController {
         
         view.addSubview(avatarImageView)
         avatarImageSetup()
-
+        
         view.addSubview(nameLabel)
         nameLabelSetup()
         
@@ -80,20 +80,20 @@ final class ProfileViewController: UIViewController {
         
         view.addSubview(logoutButton)
         logoutButtonSetup()
-          
+        
     }
     
     func avatarImageSetup() {
         avatarImageView.layer.masksToBounds = true
         avatarImageView.layer.cornerRadius = 35
-
+        
         avatarImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         avatarImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32).isActive = true
-
+        
         avatarImageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
         avatarImageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
     }
-         
+    
     func nameLabelSetup() {
         nameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 16).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor).isActive = true
@@ -113,13 +113,11 @@ final class ProfileViewController: UIViewController {
     }
     
     func logoutButtonSetup() {
-        logoutButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        logoutButton.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        logoutButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
+        logoutButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         logoutButton.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor).isActive = true
         logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
-
     }
-    
     
     @objc
     private func didTapLogoutButton() {}
