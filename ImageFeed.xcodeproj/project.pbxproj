@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		813BEF1E2A7C319900BFE1AE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813BEF1D2A7C319900BFE1AE /* Constants.swift */; };
 		81B8F4752A6BC11500EC9A70 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B8F4742A6BC11500EC9A70 /* SingleImageViewController.swift */; };
 		81F53B1A2A5B39BF00BCB33C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F53B192A5B39BF00BCB33C /* AppDelegate.swift */; };
 		81F53B1C2A5B39BF00BCB33C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F53B1B2A5B39BF00BCB33C /* SceneDelegate.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		813BEF1D2A7C319900BFE1AE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		81B8F4742A6BC11500EC9A70 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		81F53B162A5B39BF00BCB33C /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81F53B192A5B39BF00BCB33C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		813BEF1C2A7C316500BFE1AE /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				813BEF1D2A7C319900BFE1AE /* Constants.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		81B8F4732A6BC0A300EC9A70 /* SingleImageViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +128,7 @@
 				81F53B882A687B6900BCB33C /* Profile */,
 				81F53B4B2A5B4EF800BCB33C /* ImagesList */,
 				81B8F4732A6BC0A300EC9A70 /* SingleImageViewController */,
+				813BEF1C2A7C316500BFE1AE /* Service */,
 				81F53B1F2A5B39BF00BCB33C /* Main.storyboard */,
 				81F53B222A5B39C000BCB33C /* Assets.xcassets */,
 				81F53B242A5B39C000BCB33C /* LaunchScreen.storyboard */,
@@ -295,6 +306,7 @@
 				81F53B4A2A5B4EB200BCB33C /* ImagesListCell.swift in Sources */,
 				81F53B8A2A687B9F00BCB33C /* ProfileViewController.swift in Sources */,
 				81F53B1A2A5B39BF00BCB33C /* AppDelegate.swift in Sources */,
+				813BEF1E2A7C319900BFE1AE /* Constants.swift in Sources */,
 				81B8F4752A6BC11500EC9A70 /* SingleImageViewController.swift in Sources */,
 				81F53B1C2A5B39BF00BCB33C /* SceneDelegate.swift in Sources */,
 			);
