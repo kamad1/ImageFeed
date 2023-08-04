@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -237,6 +238,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="5fZ-My-vLD" kind="presentation" identifier="ShowWebView" modalPresentationStyle="overFullScreen" id="U6l-ef-xLN"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="YrW-fB-vwH"/>
@@ -251,13 +255,26 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fkR-9E-dzl"/>
-                    <connections>
-                        <segue destination="SaV-h8-ndz" kind="show" id="jIn-q7-HLa"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TS9-28-GKS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-849.61832061068696" y="-275.35211267605638"/>
+            <point key="canvasLocation" x="-1995" y="-275"/>
+        </scene>
+        <!--Web View View Controller-->
+        <scene sceneID="fLD-ww-YTY">
+            <objects>
+                <viewController id="5fZ-My-vLD" userLabel="Web View View Controller" customClass="WebViewViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="y6D-T6-oDz">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="876-9A-J2j"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="k4C-6K-PLB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gPX-KF-r0w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-982" y="-275"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9vU-fg-5Ld">
@@ -275,7 +292,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kba-eF-P0R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1776.3358778625955" y="-275.35211267605638"/>
+            <point key="canvasLocation" x="-2741" y="-275"/>
         </scene>
     </scenes>
     <resources>
@@ -286,5 +303,8 @@
         <image name="share_button" width="50" height="50"/>
         <image name="tab_editorial_active" width="30" height="30"/>
         <image name="tab_profile_active" width="30" height="30"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
