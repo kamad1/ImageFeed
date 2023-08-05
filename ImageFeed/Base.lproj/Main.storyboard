@@ -267,10 +267,44 @@
                     <view key="view" contentMode="scaleToFill" id="y6D-T6-oDz">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qY0-Gc-k0g">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TLR-TY-T5J" userLabel="didTapBackButton">
+                                <rect key="frame" x="0.0" y="0.0" width="64" height="44"/>
+                                <accessibility key="accessibilityConfiguration" identifier="didTapBackButton"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="0nf-7N-rAE"/>
+                                    <constraint firstAttribute="height" constant="44" id="kBU-WT-U86"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="nav_back_button"/>
+                                <connections>
+                                    <action selector="didTapBackButton:" destination="5fZ-My-vLD" eventType="touchUpInside" id="hXr-Dx-I38"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="876-9A-J2j"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qY0-Gc-k0g" firstAttribute="top" secondItem="y6D-T6-oDz" secondAttribute="top" id="0Py-2t-pbt"/>
+                            <constraint firstItem="TLR-TY-T5J" firstAttribute="leading" secondItem="876-9A-J2j" secondAttribute="leading" id="9bg-bv-lg6"/>
+                            <constraint firstItem="qY0-Gc-k0g" firstAttribute="leading" secondItem="y6D-T6-oDz" secondAttribute="leading" id="DhH-7h-ecA"/>
+                            <constraint firstAttribute="trailing" secondItem="qY0-Gc-k0g" secondAttribute="trailing" id="EPk-JM-oVh"/>
+                            <constraint firstItem="TLR-TY-T5J" firstAttribute="top" secondItem="876-9A-J2j" secondAttribute="top" id="imW-cJ-vKs"/>
+                            <constraint firstAttribute="bottom" secondItem="qY0-Gc-k0g" secondAttribute="bottom" id="qBj-st-s7w"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="k4C-6K-PLB"/>
+                    <connections>
+                        <outlet property="webView" destination="qY0-Gc-k0g" id="W67-4W-UNI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gPX-KF-r0w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -299,6 +333,7 @@
         <image name="0" width="200" height="132"/>
         <image name="auth_screen_logo" width="20" height="20"/>
         <image name="like_button_on" width="42" height="42"/>
+        <image name="nav_back_button" width="24" height="24"/>
         <image name="nav_back_button_white" width="24" height="24"/>
         <image name="share_button" width="50" height="50"/>
         <image name="tab_editorial_active" width="30" height="30"/>
