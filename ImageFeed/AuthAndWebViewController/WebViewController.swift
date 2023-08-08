@@ -28,11 +28,7 @@ final class WebViewViewController: UIViewController {
         webView.load(request)
         
         updateProgress()
-//        webView.addObserver(self,
-//                            forKeyPath: #keyPath(WKWebView.estimatedProgress),
-//                            options: .new,
-//                            context: nil)
-        
+
     }
     
     @IBAction private func didTapBackButton(_ sender: Any?) {
@@ -41,6 +37,7 @@ final class WebViewViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         webView.addObserver(
             self,
             forKeyPath: #keyPath(WKWebView.estimatedProgress),
