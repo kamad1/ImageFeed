@@ -1,12 +1,5 @@
-//
-//  URLRequest\URLSession.swift
-//  ImageFeed
-//
-//  Created by Jedi on 09.08.2023.
-//
 
 import Foundation
-
 
 enum NetworkError: Error {
     case httpStatusCode(Int)
@@ -47,21 +40,5 @@ extension URLSession {
         
         task.resume()
         return task
-    }
-}
-
-
-extension URLRequest {
-    /// Вспомогательная функция для создания HTTP запроса
-    
-    
-    static func makeHTTPRequest(
-        path: String,
-        httpMethod: String,
-        baseURL: URL = DefaultBaseURL
-    ) -> URLRequest {
-        var request = URLRequest(url: URL(string: path, relativeTo: baseURL)!)
-        request.httpMethod = httpMethod
-        return request
     }
 }
