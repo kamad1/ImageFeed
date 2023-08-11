@@ -64,6 +64,10 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var preferredStatusBarStyle: UIStatusBarStyle {
+            return .lightContent
+        }
+        
         view.addSubview(avatarImageView)
         avatarImageSetup()
         

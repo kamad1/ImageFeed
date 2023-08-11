@@ -18,6 +18,7 @@
 		813BEF312A81878800BFE1AE /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813BEF302A81878800BFE1AE /* SplashViewController.swift */; };
 		813BEF392A833F3F00BFE1AE /* URLRequestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813BEF382A833F3F00BFE1AE /* URLRequestExtension.swift */; };
 		813BEF3B2A84100100BFE1AE /* URLSessionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813BEF3A2A84100000BFE1AE /* URLSessionExtension.swift */; };
+		813BEF3D2A86BB7000BFE1AE /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813BEF3C2A86BB7000BFE1AE /* UIColor.swift */; };
 		81B8F4752A6BC11500EC9A70 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B8F4742A6BC11500EC9A70 /* SingleImageViewController.swift */; };
 		81F53B1A2A5B39BF00BCB33C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F53B192A5B39BF00BCB33C /* AppDelegate.swift */; };
 		81F53B1C2A5B39BF00BCB33C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F53B1B2A5B39BF00BCB33C /* SceneDelegate.swift */; };
@@ -61,6 +62,7 @@
 		813BEF302A81878800BFE1AE /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		813BEF382A833F3F00BFE1AE /* URLRequestExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestExtension.swift; sourceTree = "<group>"; };
 		813BEF3A2A84100000BFE1AE /* URLSessionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionExtension.swift; sourceTree = "<group>"; };
+		813BEF3C2A86BB7000BFE1AE /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		81B8F4742A6BC11500EC9A70 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		81F53B162A5B39BF00BCB33C /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81F53B192A5B39BF00BCB33C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				813BEF382A833F3F00BFE1AE /* URLRequestExtension.swift */,
 				813BEF3A2A84100000BFE1AE /* URLSessionExtension.swift */,
+				813BEF3C2A86BB7000BFE1AE /* UIColor.swift */,
 			);
 			path = AnyHelps;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				81F53B1A2A5B39BF00BCB33C /* AppDelegate.swift in Sources */,
 				813BEF312A81878800BFE1AE /* SplashViewController.swift in Sources */,
 				813BEF212A7C4C0000BFE1AE /* AuthViewController.swift in Sources */,
+				813BEF3D2A86BB7000BFE1AE /* UIColor.swift in Sources */,
 				813BEF2D2A817DC700BFE1AE /* AuthViewControllerDelegate.swift in Sources */,
 				813BEF1E2A7C319900BFE1AE /* Constants.swift in Sources */,
 				81B8F4752A6BC11500EC9A70 /* SingleImageViewController.swift in Sources */,
