@@ -5,7 +5,7 @@ final class SplashViewController: UIViewController {
     
     //MARK: - Variables
     private let ShowAuthSegueIdentifier = "splashViewControllerID"
-    private let oauth2Service = OAuth2Service()
+    private let oauth2Service = OAuth2Service.shared
     private let oauth2TokenStorage = OAuth2TokenStorage()
     
     //MARK: - Lyfe cycle
@@ -30,7 +30,7 @@ final class SplashViewController: UIViewController {
 }
 
 //MARK: - AuthViewControllerDelegate
-extension SplashViewController: AuthViewControllerDelegate{
+extension SplashViewController: AuthViewControllerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ShowAuthSegueIdentifier {
             
