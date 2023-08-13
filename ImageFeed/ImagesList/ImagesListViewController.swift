@@ -20,14 +20,15 @@ final class ImagesListViewController: UIViewController {
             formatter.dateFormat = "dd MMMM yyyy"
             formatter.locale = Locale(identifier: "ru_RU")
             return formatter
-        }() 
+        }()
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var preferredStatusBarStyle: UIStatusBarStyle {
-            return .lightContent
-        }
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
     
