@@ -28,3 +28,11 @@ final class AuthViewController: UIViewController {
             dismiss(animated: true)
         }
 }
+
+//MARK: - AlertPresentableDelagate
+extension AuthViewController: AlertPresentableDelagate {
+    func present(alert: UIAlertController, animated flag: Bool) {
+        self.present(alert, animated: flag)
+    }
+}
+

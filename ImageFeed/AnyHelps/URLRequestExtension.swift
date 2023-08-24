@@ -4,29 +4,17 @@ import UIKit
 
 extension URLRequest {
     /// Вспомогательная функция для создания HTTP запроса
-    //    static func makeHTTPRequest(
-    //        path: String,
-    //        httpMethod: String,
-    //        host: String = "api.unsplash.com"
-    //    ) -> URLRequest {
-    //
-    //        var urlComponents = URLComponents()
-    //        urlComponents.scheme = "https"
-    //        urlComponents.host = host
-    //        urlComponents.path = path
-    //        let url = urlComponents.url!
-    //
-    //        var request = URLRequest(url: url)
-    //        request.httpMethod = httpMethod
-    //        return request
-    //    }
-    
     static func makeHTTPRequest(
         path: String,
         httpMethod: String,
-        baseURL: URL = DefaultBaseURL
-    ) -> URLRequest {
-        var request = URLRequest(url: URL(string: path, relativeTo: baseURL)!)
+        baseURL: URL? = defaultBaseURL
+    ) -> URLRequest? {
+        guard let baseURL = baseURL,
+              let url = URL(string: path, relativeTo: baseURL) else {
+            assertionFailure("Failed to create URL with path: \(path)")
+            return nil
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = httpMethod
         return request
     }

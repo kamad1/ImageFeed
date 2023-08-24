@@ -1,8 +1,11 @@
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
-    
+    private var profileImageServiceObserver: NSObjectProtocol?
+    private let profileService = ProfileService.shared
+    private let profileImageService = ProfileImageService.shared
     private var label: UILabel?
     
     private var avatarImageView: UIImageView = {
@@ -84,7 +87,29 @@ final class ProfileViewController: UIViewController {
         view.addSubview(logoutButton)
         logoutButtonSetup()
         
+        
+        
+        updateProfileDetails(profile: profileService.profile)
+        
     }
+    
+    private func updateProfileDetails(profile: Profile?) {
+        guard let profile = profile else { return }
+        nameLabel.text = profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
+        
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.DidChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.updateAvatar()
+        }
+        updateAvatar()
+    }
+    
     
     func avatarImageSetup() {
         avatarImageView.layer.masksToBounds = true
@@ -126,3 +151,29 @@ final class ProfileViewController: UIViewController {
     private func didTapLogoutButton() {}
     
 }
+
+private extension ProfileViewController {
+    func updateAvatar() {
+        guard
+            let avatarURL = profileImageService.avatarURL,
+            let url = URL(string: avatarURL)
+        else { return }
+        
+        
+        let cache = ImageCache.default
+        cache.clearMemoryCache()
+        cache.clearDiskCache()
+        
+        let avatarPlaceholderImage = UIImage(named: "avatar_placeholder")
+        
+        let processor = RoundCornerImageProcessor(cornerRadius: 61)
+        avatarImageView.kf.indicatorType = .activity
+        avatarImageView.kf.setImage(
+            with: url,
+            placeholder: avatarPlaceholderImage,
+            options: [.processor(processor)]
+        )
+    }
+    
+}
+

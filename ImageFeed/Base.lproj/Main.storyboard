@@ -12,7 +12,7 @@
         <!--ImageList-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="ImageList" id="BYZ-38-t0r" userLabel="ImageList" customClass="ImagesListViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImagesListViewController" title="ImageList" id="BYZ-38-t0r" userLabel="ImageList" customClass="ImagesListViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -171,7 +171,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="UMf-Bm-7i2">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarViewController" id="SaV-h8-ndz" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" id="SaV-h8-ndz" customClass="TabBarController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="WuK-2O-ryZ"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Dcj-fx-eWu">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
@@ -211,7 +211,7 @@
         <!--Auth View Controller-->
         <scene sceneID="PUp-Tb-3In">
             <objects>
-                <viewController id="Q4S-bK-4Yx" customClass="AuthViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthViewController" id="Q4S-bK-4Yx" customClass="AuthViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Id2-C4-xX9">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -356,7 +356,7 @@
         <!--Navigation Controller-->
         <scene sceneID="9vU-fg-5Ld">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VUR-Cz-OiJ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationViewController" automaticallyAdjustsScrollViewInsets="NO" id="VUR-Cz-OiJ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="rPJ-v0-Dh3"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LLu-gi-Cqj">
