@@ -15,13 +15,13 @@ final class SplashViewController: UIViewController {
         static let main = "Main"
         static let authViewControllerID = "AuthViewController"
     }
-//    private let splashScreenImageView: UIImageView = {
-//        let imageView = UIImageView(image: UIImage(named: "LaunchScreen"))
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        return imageView
-//    }()
-//
+    private let splashScreenImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "LaunchScreen"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        return imageView
+    }()
+
     //MARK: - Lyfe cycle
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
@@ -42,6 +42,15 @@ final class SplashViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
       
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = #colorLiteral(red: 0.1019607843, green: 0.1058823529, blue: 0.1333333333, alpha: 1)
+        addSubViews()
+        configureConstraints()
+    }
+    
     private func checkAuthToken(_ code: String){
         oauth2Service.fetchAuthToken(code) { [weak self] result in
             guard let self = self else { return }
@@ -60,21 +69,21 @@ final class SplashViewController: UIViewController {
 }
 
 //MARK: - AuthViewControllerDelegate
+//extension SplashViewController: AuthViewControllerDelegate {
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == ShowAuthSegueIdentifier {
+//
+//            guard let navigationController = segue.destination as? UINavigationController,
+//                  let viewController = navigationController.viewControllers[0] as? AuthViewController else {
+//                fatalError("Failed to prepare for \(ShowAuthSegueIdentifier)")
+//            }
+//            viewController.delegate = self
+//        } else {
+//            super.prepare(for: segue, sender: sender)
+//        }
+//    }
+//}
 extension SplashViewController: AuthViewControllerDelegate {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ShowAuthSegueIdentifier {
-            
-            guard let navigationController = segue.destination as? UINavigationController,
-                  let viewController = navigationController.viewControllers[0] as? AuthViewController else {
-                fatalError("Failed to prepare for \(ShowAuthSegueIdentifier)")
-            }
-            viewController.delegate = self
-        } else {
-            super.prepare(for: segue, sender: sender)
-        }
-    }
-}
-extension SplashViewController {
     private func switchToAuthViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
         authViewController = storyboard.instantiateViewController(withIdentifier: Keys.authViewControllerID) as? AuthViewController
@@ -175,17 +184,17 @@ extension SplashViewController: AlertPresentableDelagate {
 }
 
 ////MARK: - Layout functions
-//extension SplashViewController {
-//    func addSubViews() {
-//        view.addSubview(splashScreenImageView)
-//    }
-//
-//    func configureConstraints() {
-//        NSLayoutConstraint.activate([
-//            splashScreenImageView.heightAnchor.constraint(equalToConstant: 77),
-//            splashScreenImageView.widthAnchor.constraint(equalToConstant: 74),
-//            splashScreenImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-//            splashScreenImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-//        ])
-//    }
-//}
+extension SplashViewController {
+    func addSubViews() {
+        view.addSubview(splashScreenImageView)
+    }
+
+    func configureConstraints() {
+        NSLayoutConstraint.activate([
+            splashScreenImageView.heightAnchor.constraint(equalToConstant: 77),
+            splashScreenImageView.widthAnchor.constraint(equalToConstant: 74),
+            splashScreenImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            splashScreenImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+    }
+}
