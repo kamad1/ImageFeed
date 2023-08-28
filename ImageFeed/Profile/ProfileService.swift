@@ -2,11 +2,11 @@
 import Foundation
 
 final class ProfileService {
-        static let shared = ProfileService()
-        
-        private let urlSession = URLSession.shared
-        private var task: URLSessionTask?
-        private(set) var profile: Profile?
+    static let shared = ProfileService()
+    
+    private let urlSession = URLSession.shared
+    private var task: URLSessionTask?
+    private(set) var profile: Profile?
     private struct Keys {
         static let authorization = "Authorization"
         static let bearer = "Bearer"
@@ -37,20 +37,20 @@ final class ProfileService {
                 guard let self = self else { return }
                 
                 switch result {
-                    case .success(let body):
-                        let profile = Profile(
-                            username: body.username,
-                            name: "\(body.firstName) \(body.lastName )",
-                            bio: body.bio ?? Keys.nilBio
-                        )
-                        
-                        self.profile = profile
-                        
-                        completion(.success(profile))
-                        self.task = nil
-                    case .failure(let error):
-                        completion(.failure(error))
-                        self.profile = nil
+                case .success(let body):
+                    let profile = Profile(
+                        username: body.username,
+                        name: "\(body.firstName) \(body.lastName ?? Keys.nilLastName )",
+                        bio: body.bio ?? Keys.nilBio
+                    )
+                    
+                    self.profile = profile
+                    
+                    completion(.success(profile))
+                    self.task = nil
+                case .failure(let error):
+                    completion(.failure(error))
+                    self.profile = nil
                 }
             }
         }
@@ -58,7 +58,7 @@ final class ProfileService {
         self.task = task
         task.resume()
     }
-
+    
 }
 
 private extension ProfileService {
@@ -72,7 +72,7 @@ private extension ProfileService {
 struct ProfileResult: Codable {
     let username: String
     let firstName: String
-    let lastName: String
+    let lastName: String?
     let bio: String?
     
     private enum CodingKeys: String, CodingKey {

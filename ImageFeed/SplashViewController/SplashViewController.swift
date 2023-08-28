@@ -144,6 +144,7 @@ extension SplashViewController {
                     UIBlockingProgressHUD.dismiss()
                     self.switchToTabBarController()
                 case .failure:
+                    UIBlockingProgressHUD.dismiss()
                     showErrorAlert()
                     break
             }
