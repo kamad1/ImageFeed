@@ -1,6 +1,7 @@
 
 import UIKit
 import Kingfisher
+import WebKit
 
 final class ProfileViewController: UIViewController {
     private var profileImageServiceObserver: NSObjectProtocol?
@@ -60,6 +61,18 @@ final class ProfileViewController: UIViewController {
         
         button.tintColor = #colorLiteral(red: 0.9607843137, green: 0.4196078431, blue: 0.4235294118, alpha: 1)
         button.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 14.0, *) {
+
+//                        //TODO: Выход из профиля
+                    let logOutAction = UIAction(title: "logOut") { (ACTION) in
+                        ProfileViewController.logOut()
+                    }
+                    button.addAction(logOutAction, for: .touchUpInside)
+                } else {
+                   button.addTarget(ProfileViewController.self,
+                                    action: #selector(didTapLogoutButton),
+                                    for: .touchUpInside)
+               }
         return button
     }()
     
@@ -94,7 +107,7 @@ final class ProfileViewController: UIViewController {
         
     }
     
-    private func updateProfileDetails(profile: Profile?) {
+     func updateProfileDetails(profile: Profile?) {
         guard let profile = profile else { return }
         nameLabel.text = profile.name
         loginNameLabel.text = profile.loginName
@@ -149,11 +162,13 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc
-    private func didTapLogoutButton() {}
+     func didTapLogoutButton() {
+        ProfileViewController.logOut()
+    }
     
 }
 
-private extension ProfileViewController {
+ private extension ProfileViewController {
     func updateAvatar() {
         guard
             let avatarURL = profileImageService.avatarURL,
@@ -161,9 +176,9 @@ private extension ProfileViewController {
         else { return }
         
         
-        let cache = ImageCache.default
-        cache.clearMemoryCache()
-        cache.clearDiskCache()
+//        let cache = ImageCache.default
+//        cache.clearMemoryCache()
+//        cache.clearDiskCache()
         
         let avatarPlaceholderImage = UIImage(named: "avatar_placeholder")
         
@@ -176,5 +191,18 @@ private extension ProfileViewController {
         )
     }
     
+     static func logOut() {
+              OAuth2TokenStorage().token = nil
+              WebViewViewController.cleanCookies()
+
+              guard let window = UIApplication.shared.windows.first else {
+                  assertionFailure("Invalid Configuration")
+                  return
+              }
+
+              let authViewController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "AuthViewController")
+              window.rootViewController = authViewController
+          }
+     
 }
 

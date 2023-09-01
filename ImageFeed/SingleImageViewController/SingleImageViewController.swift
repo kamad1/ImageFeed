@@ -26,23 +26,24 @@ final class SingleImageViewController: UIViewController {
         scrollView.maximumZoomScale = 1.25
         
         UIBlockingProgressHUD.show()
-        imageView.kf.setImage(with: largeImageURL) { [weak self] result in
-            UIBlockingProgressHUD.dismiss()
-            
-            guard let self = self else { return }
-            
-            switch result {
-                case .success(let imageResult):
-                    self.rescaleAndCenterImageInScrollView(image: imageResult.image)
-                    activityController = UIActivityViewController(
-                        activityItems: [imageResult.image as Any],
-                        applicationActivities: nil
-                    )
-                case .failure:
-                    //TODO: - показать ошибку
-                    print("error")
-            }
-        }
+//        imageView.kf.setImage(with: largeImageURL) { [weak self] result in
+//            UIBlockingProgressHUD.dismiss()
+//
+//            guard let self = self else { return }
+//
+//            switch result {
+//                case .success(let imageResult):
+//                    self.rescaleAndCenterImageInScrollView(image: imageResult.image)
+//                    activityController = UIActivityViewController(
+//                        activityItems: [imageResult.image as Any],
+//                        applicationActivities: nil
+//                    )
+//                case .failure:
+//                    //TODO: - показать ошибку
+//                    print("error")
+//            }
+//        }
+        downloadImage()
     }
     
     override func viewDidLayoutSubviews() {
@@ -99,6 +100,31 @@ final class SingleImageViewController: UIViewController {
         let y = (newContentSize.height - visibleRectSize.height) / 2
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
     }
+    
+    func downloadImage() {
+             imageView.kf.setImage(with: largeImageURL) { [weak self] result in
+                 UIBlockingProgressHUD.dismiss()
+
+                 guard let self = self else { return }
+
+                 switch result {
+                     case .success(let imageResult):
+                         self.rescaleAndCenterImageInScrollView(image: imageResult.image)
+                         activityController = UIActivityViewController(
+                             activityItems: [imageResult.image as Any],
+                             applicationActivities: nil
+                         )
+                     case .failure:
+                         showError()
+                 }
+             }
+         }
+
+         func showError() {
+             //TODO: - показать ошибку
+             //        Добавьте также функцию showError(), которая показывает алерт об ошибке с текстом «Что-то пошло не так. Попробовать ещё раз?» и с кнопками «Не надо» (скрывает алерт) и «Повторить» (повторно выполняет kt.setImage — используйте блок кода выше; его можно положить в отдельную функцию и вызвать её при нажатии на «Повторить»).
+         }
+    
 }
 
 extension SingleImageViewController: UIScrollViewDelegate {

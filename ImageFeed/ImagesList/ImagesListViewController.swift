@@ -50,8 +50,6 @@ extension ImagesListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-//        let thumbnailURL = photos[indexPath.row].thumbImageURL
-//        let statusOfConfiguringCell = imageListCell.configCell(using: thumbnailURL, with: indexPath)
         imageListCell.delegate = self
 
                let photo = photos[indexPath.row]
@@ -64,21 +62,6 @@ extension ImagesListViewController: UITableViewDataSource {
         return imageListCell
     }
 }
-
-//extension ImagesListViewController {  //4
-//    func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-//        guard let image = UIImage(named: photosName[indexPath.row]) else {
-//            return
-//        }
-//
-//        cell.cellImage.image = image
-//        cell.dateLabel.text = dateFormatter.string(from: Date())
-//
-//        let isLiked = indexPath.row % 2 == 0
-//        let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
-//        cell.likeButton.setImage(likeImage, for: .normal)
-//    }
-//}
 
 extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -142,6 +125,9 @@ private extension ImagesListViewController {
             } completion: { _ in }
         }
     }
+    func showError() {
+             // TODO: Показать ошибку с использованием UIAlertController
+         }
 }
 
 //MARK: - ImagesListCellDelegate
@@ -159,16 +145,20 @@ private extension ImagesListViewController {
          imagesListService.changeLike(
              photoId: photo.id,
              isLike: isLiked
-         ) { result in
+//         ) { result in
+         ) { [weak self] result in
+                      guard let self = self else { return }
              switch result {
                  case .success(let isLiked):
                      self.photos[indexPath.row].isLiked = isLiked
                      cell.setIsLiked(isLiked)
                      UIBlockingProgressHUD.dismiss()
-                 case .failure(let error):
+//                 case .failure(let error):
+             case .failure:
                      UIBlockingProgressHUD.dismiss()
-                     // TODO: Показать ошибку с использованием UIAlertController
-                     print("!ОШИБКИ не удалось изменить лайк \(error)")
+//                     // TODO: Показать ошибку с использованием UIAlertController
+//                     print("!ОШИБКИ не удалось изменить лайк \(error)")
+                 self.showError()
              }
          }
      }
