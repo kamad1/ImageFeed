@@ -1,18 +1,22 @@
 import UIKit
 
+protocol ImagesListCellDelegate: AnyObject {
+     func imageListCellDidTapLike(_ cell: ImagesListCell)
+ }
+
 final class ImagesListCell: UITableViewCell {
 
     static let reuseIdentifier = "ImagesListCell"
+    weak var delegate: ImagesListCellDelegate?
     
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
-//    @IBOutlet private weak var backgroundLabel: UILabel!
-    
     @IBOutlet weak var backgroundLabel: UILabel!
     
-    
-    
+    @IBAction func likeButtonClicked() {
+        delegate?.imageListCellDidTapLike(self)}
+
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -47,11 +51,11 @@ extension ImagesListCell {
         
         dateLabel.text = Date().dateTimeString
         
-        let likeImageText = indexPath.row % 2 == 0 ? "like_button_on" : "like_button_off"
-        guard let likeImage = UIImage(named: likeImageText) else {
-            return status
-        }
-        likeButton.setImage(likeImage, for: .normal)
+//        let likeImageText = indexPath.row % 2 == 0 ? "like_button_on" : "like_button_off"
+//        guard let likeImage = UIImage(named: likeImageText) else {
+//            return status
+//        }
+//        likeButton.setImage(likeImage, for: .normal)
         
         return status
     }
@@ -74,5 +78,11 @@ extension ImagesListCell {
         label.layer.insertSublayer(backgroundLayer, at: 0)
         label.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     }
+    
+    func setIsLiked(_ isLiked: Bool) {
+             let likeImageText = isLiked ? "like_button_on" : "like_button_off"
+             guard let likeImage = UIImage(named: likeImageText) else { return }
+             likeButton.setImage(likeImage, for: .normal)
+         }
 }
 

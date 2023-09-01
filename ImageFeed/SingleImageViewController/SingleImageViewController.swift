@@ -11,6 +11,8 @@ final class SingleImageViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet private var imageView: UIImageView!
+    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
@@ -18,10 +20,37 @@ final class SingleImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = image
-        rescaleAndCenterImageInScrollView(image: image)
+//        imageView.image = image
+//        rescaleAndCenterImageInScrollView(image: image)
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
+        
+        UIBlockingProgressHUD.show()
+        imageView.kf.setImage(with: largeImageURL) { [weak self] result in
+            UIBlockingProgressHUD.dismiss()
+            
+            guard let self = self else { return }
+            
+            switch result {
+                case .success(let imageResult):
+                    self.rescaleAndCenterImageInScrollView(image: imageResult.image)
+                    activityController = UIActivityViewController(
+                        activityItems: [imageResult.image as Any],
+                        applicationActivities: nil
+                    )
+                case .failure:
+                    //TODO: - показать ошибку
+                    print("error")
+            }
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if let image = imageView.image {
+            rescaleAndCenterImageInScrollView(image: image)
+        }
     }
     
     @IBAction private func didTapBackButton() {
@@ -29,16 +58,28 @@ final class SingleImageViewController: UIViewController {
     }
     
     @IBAction func didTapShareButton(_ sender: UIButton) {
-        let share = UIActivityViewController(
-            activityItems: [image as Any],
-            applicationActivities: nil
-        )
-        present(share, animated: true, completion: nil)
+        present(activityController, animated: true, completion: nil)
+//        let share = UIActivityViewController(
+//            activityItems: [image as Any],
+//            applicationActivities: nil
+//        )
+//        present(share, animated: true, completion: nil)
     }
     
+    //MARK: - Variables
+    var largeImageURL: URL?
+    
+    private var activityController = UIActivityViewController(activityItems: [], applicationActivities: nil)
+    
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        UIView.animate(withDuration: 0.6) {
-            self.rescaleAndCenterImageInScrollView(image: self.image)
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            
+            guard let self = self,
+                  let image = self.imageView.image  else {
+                return
+            }
+            
+            self.rescaleAndCenterImageInScrollView(image: image)
         }
     }
     

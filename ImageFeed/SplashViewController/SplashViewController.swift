@@ -51,21 +51,21 @@ final class SplashViewController: UIViewController {
         configureConstraints()
     }
     
-    private func checkAuthToken(_ code: String){
-        oauth2Service.fetchAuthToken(code) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-                case .success(let token):
-                    self.fetchProfile(token: token)
-                case .failure:
-                    UIBlockingProgressHUD.dismiss()
-                    showErrorAlert()
-                    
-                    break
-            }
-        }
-    }
+//    private func checkAuthToken(_ code: String){
+//        oauth2Service.fetchAuthToken(code) { [weak self] result in
+//            guard let self = self else { return }
+//
+//            switch result {
+//                case .success(let token):
+//                    self.fetchProfile(token: token)
+//                case .failure:
+//                    UIBlockingProgressHUD.dismiss()
+//                    showErrorAlert()
+//
+//                    break
+//            }
+//        }
+//    }
 }
 
 //MARK: - AuthViewControllerDelegate

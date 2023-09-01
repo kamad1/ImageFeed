@@ -63,11 +63,6 @@ final class WebViewViewController: UIViewController {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
-    
-    private func updateProgress() {
-        progressView.progress = Float(webView.estimatedProgress)
-        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
-    }
 
 }
 
@@ -121,6 +116,7 @@ extension WebViewViewController {
         webView.load(request)
     }
     
+    
     func addEstimatedProgressObservtion() {
         estimatedProgressObservtion = webView.observe(
             \.estimatedProgress,
@@ -130,6 +126,11 @@ extension WebViewViewController {
                  self.updateProgress()
              }
         )
+    }
+    
+    private func updateProgress() {
+        progressView.progress = Float(webView.estimatedProgress)
+        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
     }
 }
 //MARK: - AlertPresenter
