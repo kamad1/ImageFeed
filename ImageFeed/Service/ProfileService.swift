@@ -2,11 +2,7 @@
 import Foundation
 
 final class ProfileService {
-    static let shared = ProfileService()
-    
-    private let urlSession = URLSession.shared
-    private var task: URLSessionTask?
-    private(set) var profile: Profile?
+ 
     private struct Keys {
         static let authorization = "Authorization"
         static let bearer = "Bearer"
@@ -14,6 +10,12 @@ final class ProfileService {
         static let nilLastName = ""
         static let httpMethodGet = "GET"
     }
+    
+    static let shared = ProfileService()
+    
+    private let urlSession = URLSession.shared
+    private var task: URLSessionTask?
+    private(set) var profile: Profile?
     
     private init() { }
     

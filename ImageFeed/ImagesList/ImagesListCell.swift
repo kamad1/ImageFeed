@@ -5,9 +5,6 @@ protocol ImagesListCellDelegate: AnyObject {
  }
 
 final class ImagesListCell: UITableViewCell {
-
-    static let reuseIdentifier = "ImagesListCell"
-    weak var delegate: ImagesListCellDelegate?
     
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var likeButton: UIButton!
@@ -16,6 +13,17 @@ final class ImagesListCell: UITableViewCell {
     
     @IBAction func likeButtonClicked() {
         delegate?.imageListCellDidTapLike(self)}
+    
+    private struct Keys {
+             static let reuseIdentifierName = "ImagesListCell"
+             static let placeholderImageName = "image_cell_placeholder"
+             static let likedImageName = "like_button_on"
+             static let unlikedImageName = "like_button_off"
+         }
+
+         //MARK: - Variables
+         static let reuseIdentifier = Keys.reuseIdentifierName
+         weak var delegate: ImagesListCellDelegate?
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -34,7 +42,7 @@ extension ImagesListCell {
             return status
         }
         
-        let placeholderImage = UIImage(named: "image_cell_placeholder")
+        let placeholderImage = UIImage(named: Keys.placeholderImageName)
         
         cellImage.kf.indicatorType = .activity
         cellImage.kf.setImage(
@@ -80,7 +88,7 @@ extension ImagesListCell {
     }
     
     func setIsLiked(_ isLiked: Bool) {
-             let likeImageText = isLiked ? "like_button_on" : "like_button_off"
+        let likeImageText = isLiked ? Keys.likedImageName : Keys.unlikedImageName
              guard let likeImage = UIImage(named: likeImageText) else { return }
              likeButton.setImage(likeImage, for: .normal)
          }

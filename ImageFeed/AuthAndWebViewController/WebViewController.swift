@@ -7,9 +7,7 @@ final class WebViewViewController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet private var progressView: UIProgressView!
     
-    weak var delegate: WebViewViewControllerDelegate?
-    private var estimatedProgressObservtion: NSKeyValueObservation?
-    private var alertPresenter: AlertPresenterProtocol?
+
     private struct WebKeys {
         static let clientId = "client_id"
         static let redirectUri = "redirect_uri"
@@ -22,6 +20,10 @@ final class WebViewViewController: UIViewController {
         static let code = "code"
         static let authPath = "/oauth/authorize/native"
     }
+    
+    weak var delegate: WebViewViewControllerDelegate?
+    private var estimatedProgressObservtion: NSKeyValueObservation?
+    private var alertPresenter: AlertPresenterProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()

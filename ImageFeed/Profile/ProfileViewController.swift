@@ -4,14 +4,26 @@ import Kingfisher
 import WebKit
 
 final class ProfileViewController: UIViewController {
+    
+    private struct Keys {
+             static let main = "Main"
+             static let logoutImageName = "logout_button"
+             static let systemLogoutImageName = "ipad.and.arrow.forward"
+             static let logOutActionName = "logOut"
+             static let systemAvatarImageName = "person.crop.circle.fill"
+             static let avatarPlaceholderImageName = "avatar_placeholder"
+             static let authViewControllerName = "AuthViewController"
+         }
+    
     private var profileImageServiceObserver: NSObjectProtocol?
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
     private var label: UILabel?
     
     private var avatarImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "avatar")
+//        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "avatar")
+        let imageView = UIImageView(image: UIImage(systemName: Keys.systemAvatarImageName))
         imageView.tintColor = .gray
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -20,7 +32,7 @@ final class ProfileViewController: UIViewController {
     
     private var nameLabel: UILabel = {
         let labelname = UILabel()
-        labelname.text = "Екатерина Новикова"
+//        labelname.text = "Екатерина Новикова"
         labelname.textAlignment = .left
         labelname.textColor = .white
         labelname.font = .systemFont(ofSize: 23, weight: UIFont.Weight.bold)
@@ -31,7 +43,7 @@ final class ProfileViewController: UIViewController {
     
     private  var loginNameLabel: UILabel = {
         let loginLabel = UILabel()
-        loginLabel.text = "@ekaterina_nov"
+//        loginLabel.text = "@ekaterina_nov"
         loginLabel.textAlignment = .left
         loginLabel.textColor = .lightGray
         loginLabel.font = .systemFont(ofSize: 13)
@@ -42,7 +54,7 @@ final class ProfileViewController: UIViewController {
     
     private var descriptionLabel: UILabel = {
         let descriptionText = UILabel()
-        descriptionText.text = "Hello, World!"
+//        descriptionText.text = "Hello, World!"
         descriptionText.textColor = .white
         descriptionText.font = .systemFont(ofSize: 13)
         descriptionText.textAlignment = .left
@@ -51,21 +63,45 @@ final class ProfileViewController: UIViewController {
         return descriptionText
     }()
     
+//    lazy var logoutButton: UIButton = {
+//
+//        let button = UIButton.systemButton(
+//            with: UIImage(named: "logout_button") ?? UIImage(),
+//            target: self,
+//            action: #selector(Self.didTapLogoutButton)
+//        )
+//
+//        button.tintColor = #colorLiteral(red: 0.9607843137, green: 0.4196078431, blue: 0.4235294118, alpha: 1)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        if #available(iOS 14.0, *) {
+//
+//                      //TODO: Выход из профиля
+//                    let logOutAction = UIAction(title: "logOut") { (ACTION) in
+//                        ProfileViewController.logOut()
+//                    }
+//                    button.addAction(logOutAction, for: .touchUpInside)
+//                } else {
+//                   button.addTarget(ProfileViewController.self,
+//                                    action: #selector(didTapLogoutButton),
+//                                    for: .touchUpInside)
+//               }
+//        return button
+//    }()
+    
     lazy var logoutButton: UIButton = {
         
-        let button = UIButton.systemButton(
-            with: UIImage(named: "logout_button") ?? UIImage(),
-            target: self,
-            action: #selector(Self.didTapLogoutButton)
-        )
+        let image = UIImage(named: Keys.logoutImageName) ?? UIImage(systemName: Keys.systemLogoutImageName)!
         
-        button.tintColor = #colorLiteral(red: 0.9607843137, green: 0.4196078431, blue: 0.4235294118, alpha: 1)
+   
+        let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(image, for: .normal)
+        button.tintColor = #colorLiteral(red: 0.9607843137, green: 0.4196078431, blue: 0.4235294118, alpha: 1)
         if #available(iOS 14.0, *) {
 
-//                        //TODO: Выход из профиля
-                    let logOutAction = UIAction(title: "logOut") { (ACTION) in
-                        ProfileViewController.logOut()
+                      //TODO: Выход из профиля
+            let logOutAction = UIAction(title: Keys.logOutActionName) { (ACTION) in
+                ProfileViewController.logOut()
                     }
                     button.addAction(logOutAction, for: .touchUpInside)
                 } else {
@@ -107,23 +143,38 @@ final class ProfileViewController: UIViewController {
         
     }
     
-     func updateProfileDetails(profile: Profile?) {
-        guard let profile = profile else { return }
-        nameLabel.text = profile.name
-        loginNameLabel.text = profile.loginName
-        descriptionLabel.text = profile.bio
-        
-        profileImageServiceObserver = NotificationCenter.default.addObserver(
-            forName: ProfileImageService.DidChangeNotification,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            guard let self = self else { return }
-            self.updateAvatar()
+//     func updateProfileDetails(profile: Profile?) {
+//        guard let profile = profile else { return }
+//        nameLabel.text = profile.name
+//        loginNameLabel.text = profile.loginName
+//        descriptionLabel.text = profile.bio
+//
+//        profileImageServiceObserver = NotificationCenter.default.addObserver(
+//            forName: ProfileImageService.DidChangeNotification,
+//            object: nil,
+//            queue: .main
+//        ) { [weak self] _ in
+//            guard let self = self else { return }
+//            self.updateAvatar()
+//        }
+//        updateAvatar()
+//    }
+    func updateProfileDetails(profile: Profile?) {
+            guard let profile = profile else { return }
+            nameLabel.text = profile.name
+            loginNameLabel.text = profile.loginName
+            descriptionLabel.text = profile.bio
+            
+            profileImageServiceObserver = NotificationCenter.default.addObserver(
+                forName: ProfileImageService.DidChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+            updateAvatar()
         }
-        updateAvatar()
-    }
-    
     
     func avatarImageSetup() {
         avatarImageView.layer.masksToBounds = true
@@ -180,7 +231,8 @@ final class ProfileViewController: UIViewController {
 //        cache.clearMemoryCache()
 //        cache.clearDiskCache()
         
-        let avatarPlaceholderImage = UIImage(named: "avatar_placeholder")
+//        let avatarPlaceholderImage = UIImage(named: "avatar_placeholder")
+        let avatarPlaceholderImage = UIImage(named: Keys.avatarPlaceholderImageName)
         
         let processor = RoundCornerImageProcessor(cornerRadius: 61)
         avatarImageView.kf.indicatorType = .activity
@@ -200,7 +252,8 @@ final class ProfileViewController: UIViewController {
                   return
               }
 
-              let authViewController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "AuthViewController")
+//              let authViewController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "AuthViewController")
+         let authViewController = UIStoryboard(name: Keys.main, bundle: .main).instantiateViewController(withIdentifier: Keys.authViewControllerName)
               window.rootViewController = authViewController
           }
      

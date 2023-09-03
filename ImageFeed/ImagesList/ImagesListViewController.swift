@@ -8,13 +8,15 @@ final class ImagesListViewController: UIViewController {
     private var imagesListService: ImagesListService?
     private var imagesServiceObserver: NSObjectProtocol?
     private var photos: [Photo] = []
-
+    private var alertPresenter: AlertPresenter?
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        alertPresenter = AlertPresenter(delagate: self)
         
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         configureImageList()
@@ -126,7 +128,15 @@ private extension ImagesListViewController {
         }
     }
     func showError() {
-             // TODO: Показать ошибку с использованием UIAlertController
+        let alert = AlertModel(title: "Ошибка сети",
+                                        message: "Не удалось поставить/убрать лайк",
+                                        buttonText: "Ок",
+                                        completion: { [weak self] in
+                     guard let self = self else { return }
+                     dismiss(animated: true)
+                 })
+
+                 alertPresenter?.show(alert)
          }
 }
 
@@ -161,5 +171,11 @@ private extension ImagesListViewController {
                  self.showError()
              }
          }
+     }
+ }
+
+extension ImagesListViewController: AlertPresentableDelagate {
+     func present(alert: UIAlertController, animated flag: Bool) {
+         self.present(alert, animated: flag)
      }
  }

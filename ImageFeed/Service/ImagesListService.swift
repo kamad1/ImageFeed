@@ -1,13 +1,22 @@
 import Foundation
 
 final class ImagesListService {
+    
+    private struct Keys {
+        static let nameNotification = "ImagesListServiceDidChange"
+        static let bearer = "Bearer"
+        static let authorization = "Authorization"
+        static let photos = "Photos"
+    }
+    
     //MARK: - Variables
     private let urlSession = URLSession.shared
     private let token = OAuth2TokenStorage().token
     private var lastLoadedPage: Int?
     private var task: URLSessionTask?
     private (set) var photos: [Photo] = []
-    static let DidChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
+    //    static let DidChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
+    static let DidChangeNotification = Notification.Name(rawValue: Keys.nameNotification)
     
     //MARK: - Main function
     func fetchPhotosNextPage() {
@@ -18,7 +27,8 @@ final class ImagesListService {
         guard let token = token else { return }
         
         var requestPhotos = photosRequest(page: nextPage, perPage: 10)
-        requestPhotos?.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        //        requestPhotos?.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        requestPhotos?.addValue("\(Keys.bearer) \(token)", forHTTPHeaderField: Keys.authorization)
         
         guard let requestPhotos = requestPhotos else { return }
         
@@ -27,31 +37,32 @@ final class ImagesListService {
                 guard let self = self else { return }
                 
                 switch result {
-                    case .success(let body):
-                        body.forEach { photo in
-                            self.photos.append(Photo(
-                                id: photo.id,
-                                size: CGSize(width: photo.width,
-                                             height: photo.height
-                                            ),
-                                createdAt: photo.createdAt?.dateTimeString,
-                                welcomeDescription: photo.description,
-                                thumbImageURL: photo.urls.thumb,
-                                largeImageURL: photo.urls.full,
-                                isLiked: photo.likedByUser
-                            )
-                            )
-                        }
-                        self.lastLoadedPage = nextPage
-                        NotificationCenter.default
-                            .post(
-                                name: ImagesListService.DidChangeNotification,
-                                object: self,
-                                userInfo: ["Photos": self.photos])
-                        
-                        self.task = nil
-                    case .failure(let error):
-                        print("!ОШИБКА загрузки картинок \(error)")
+                case .success(let body):
+                    body.forEach { photo in
+                        self.photos.append(Photo(
+                            id: photo.id,
+                            size: CGSize(width: photo.width,
+                                         height: photo.height
+                                        ),
+                            createdAt: photo.createdAt?.dateTimeString,
+                            welcomeDescription: photo.description,
+                            thumbImageURL: photo.urls.thumb,
+                            largeImageURL: photo.urls.full,
+                            isLiked: photo.likedByUser
+                        )
+                        )
+                    }
+                    self.lastLoadedPage = nextPage
+                    NotificationCenter.default
+                        .post(
+                            name: ImagesListService.DidChangeNotification,
+                            object: self,
+                            //                                userInfo: ["Photos": self.photos])
+                            userInfo: [Keys.photos: self.photos])
+                    
+                    self.task = nil
+                case .failure(let error):
+                    print("!ОШИБКА загрузки картинок \(error)")
                 }
             }
         }
@@ -61,53 +72,54 @@ final class ImagesListService {
     }
     
     func changeLike(
-             photoId: String,
-             isLike: Bool,
-             _ completion: @escaping (Result<Bool, Error>) -> Void
-         ) {
-             assert(Thread.isMainThread)
-             if task != nil { return }
-
-             var requestLike = isLike ? unlikeRequest(photoId: photoId) : likeRequest(photoId: photoId)
-             guard let token = token else { return }
-             requestLike?.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-
-             guard let requestLike = requestLike else { return }
-
-             let task = urlSession.objectTask(for: requestLike) { [weak self] (result: Result<LikeResult, Error>) in
-                 DispatchQueue.main.async {
-                     guard let self = self else { return }
-
-                     switch result {
-                         case .success(let body):
-                             let likedByUser = body.photo.likedByUser
-                             if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
-                                 let photo = self.photos[index]
-                                 let newPhoto = Photo(
-                                     id: photo.id,
-                                     size: photo.size,
-                                     createdAt: photo.createdAt,
-                                     welcomeDescription: photo.welcomeDescription,
-                                     thumbImageURL: photo.thumbImageURL,
-                                     largeImageURL: photo.largeImageURL,
-                                     isLiked: likedByUser
-                                 )
-                                 self.photos[index] = newPhoto
-                             }
-
-                             completion(.success(likedByUser))
-
-                             self.task = nil
-                         case .failure(let error):
-                             completion(.failure(error))
-                             print("!ОШИБКА в запросе лайка \(error)")
-                     }
-                 }
-             }
-
-             self.task = task
-             task.resume()
-         }
+        photoId: String,
+        isLike: Bool,
+        _ completion: @escaping (Result<Bool, Error>) -> Void
+    ) {
+        assert(Thread.isMainThread)
+        if task != nil { return }
+        
+        var requestLike = isLike ? unlikeRequest(photoId: photoId) : likeRequest(photoId: photoId)
+        guard let token = token else { return }
+        //             requestLike?.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        requestLike?.addValue("\(Keys.bearer) \(token)", forHTTPHeaderField: Keys.authorization)
+        
+        guard let requestLike = requestLike else { return }
+        
+        let task = urlSession.objectTask(for: requestLike) { [weak self] (result: Result<LikeResult, Error>) in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let body):
+                    let likedByUser = body.photo.likedByUser
+                    if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
+                        let photo = self.photos[index]
+                        let newPhoto = Photo(
+                            id: photo.id,
+                            size: photo.size,
+                            createdAt: photo.createdAt,
+                            welcomeDescription: photo.welcomeDescription,
+                            thumbImageURL: photo.thumbImageURL,
+                            largeImageURL: photo.largeImageURL,
+                            isLiked: likedByUser
+                        )
+                        self.photos[index] = newPhoto
+                    }
+                    
+                    completion(.success(likedByUser))
+                    
+                    self.task = nil
+                case .failure(let error):
+                    completion(.failure(error))
+                    print("!ОШИБКА в запросе лайка \(error)")
+                }
+            }
+        }
+        
+        self.task = task
+        task.resume()
+    }
 }
 
 private extension ImagesListService {
