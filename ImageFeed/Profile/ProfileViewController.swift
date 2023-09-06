@@ -229,9 +229,9 @@ private extension ProfileViewController {
             switch result {
             case .success:
                 self.removeGradients()
-                print("")
             case .failure:
-                print("!ОШИБКА загрузки аватара")
+                self.removeGradients()
+                avatarImageView.image = avatarPlaceholderImage
             }
         }
     }

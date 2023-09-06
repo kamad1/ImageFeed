@@ -1,8 +1,8 @@
 import UIKit
 
 protocol ImagesListCellDelegate: AnyObject {
-     func imageListCellDidTapLike(_ cell: ImagesListCell)
- }
+    func imageListCellDidTapLike(_ cell: ImagesListCell)
+}
 
 final class ImagesListCell: UITableViewCell {
     
@@ -15,18 +15,18 @@ final class ImagesListCell: UITableViewCell {
         delegate?.imageListCellDidTapLike(self)}
     
     private struct Keys {
-             static let reuseIdentifierName = "ImagesListCell"
-             static let placeholderImageName = "image_cell_placeholder"
-             static let likedImageName = "like_button_on"
-             static let unlikedImageName = "like_button_off"
-         }
-
-         //MARK: - Variables
-         private let translucentGradient = TranslucentGradient()
-         private var animationLayer: CALayer?
-         static let reuseIdentifier = Keys.reuseIdentifierName
-         weak var delegate: ImagesListCellDelegate?
-
+        static let reuseIdentifierName = "ImagesListCell"
+        static let placeholderImageName = "image_cell_placeholder"
+        static let likedImageName = "like_button_on"
+        static let unlikedImageName = "like_button_off"
+    }
+    
+    //MARK: - Variables
+    private let translucentGradient = TranslucentGradient()
+    private var animationLayer: CALayer?
+    static let reuseIdentifier = Keys.reuseIdentifierName
+    weak var delegate: ImagesListCellDelegate?
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         removeGradient()
@@ -55,21 +55,24 @@ extension ImagesListCell {
             guard let self = self else { return }
             
             switch result {
-                case .success(_):
+            case .success(_):
                 self.removeGradient()
-                    status = true
-                case .failure(let error):
-                    print("!ОШИБКА загрузки картинки \(error)")
+                status = true
+                //                case .failure(let error):
+                //                    print("!ОШИБКА загрузки картинки \(error)")
+            case .failure:
+                self.removeGradient()
+                cellImage.image = placeholderImage
             }
         }
         
-//        dateLabel.text = Date().dateTimeString
+        //        dateLabel.text = Date().dateTimeString
         
-//        let likeImageText = indexPath.row % 2 == 0 ? "like_button_on" : "like_button_off"
-//        guard let likeImage = UIImage(named: likeImageText) else {
-//            return status
-//        }
-//        likeButton.setImage(likeImage, for: .normal)
+        //        let likeImageText = indexPath.row % 2 == 0 ? "like_button_on" : "like_button_off"
+        //        guard let likeImage = UIImage(named: likeImageText) else {
+        //            return status
+        //        }
+        //        likeButton.setImage(likeImage, for: .normal)
         
         return status
     }
@@ -95,34 +98,34 @@ extension ImagesListCell {
     
     func setIsLiked(_ isLiked: Bool) {
         let likeImageText = isLiked ? Keys.likedImageName : Keys.unlikedImageName
-             guard let likeImage = UIImage(named: likeImageText) else { return }
-             likeButton.setImage(likeImage, for: .normal)
-         }
+        guard let likeImage = UIImage(named: likeImageText) else { return }
+        likeButton.setImage(likeImage, for: .normal)
+    }
     func addGradient(size: CGSize) {
-
-             let cellGradient = translucentGradient.getGradient(
-                 size: size,
-                 cornerRadius: cellImage.layer.cornerRadius)
-
-             var positionSubLayer: UInt32 = 0
-             if let sublayers = cellImage.layer.sublayers {
-                 positionSubLayer = UInt32(sublayers.count) + 1
-             }
-             cellImage.layer.insertSublayer(cellGradient, at: positionSubLayer)
-
-             likeButton.isHidden = true
-             backgroundLabel.isHidden = true
-             dateLabel.isHidden = true
-
-             animationLayer = cellGradient
-         }
-
-         private func removeGradient() {
-             animationLayer?.removeFromSuperlayer()
-
-             likeButton.isHidden = false
-             backgroundLabel.isHidden = false
-             dateLabel.isHidden = false
-         }
+        
+        let cellGradient = translucentGradient.getGradient(
+            size: size,
+            cornerRadius: cellImage.layer.cornerRadius)
+        
+        var positionSubLayer: UInt32 = 0
+        if let sublayers = cellImage.layer.sublayers {
+            positionSubLayer = UInt32(sublayers.count) + 1
+        }
+        cellImage.layer.insertSublayer(cellGradient, at: positionSubLayer)
+        
+        likeButton.isHidden = true
+        backgroundLabel.isHidden = true
+        dateLabel.isHidden = true
+        
+        animationLayer = cellGradient
+    }
+    
+    private func removeGradient() {
+        animationLayer?.removeFromSuperlayer()
+        
+        likeButton.isHidden = false
+        backgroundLabel.isHidden = false
+        dateLabel.isHidden = false
+    }
 }
 
