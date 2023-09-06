@@ -51,6 +51,10 @@ extension ImagesListViewController: UITableViewDataSource {
             print("ERROR! Ошибка привдения типов, создана пустая ячейка")
             return UITableViewCell()
         }
+        imageListCell.addGradient(size: CGSize(
+                     width: imageListCell.bounds.width,
+                     height: imageListCell.bounds.height
+                 ))
         
         imageListCell.delegate = self
 

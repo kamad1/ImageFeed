@@ -144,24 +144,11 @@ final class ProfileViewController: UIViewController {
         updateProfileDetails(profile: profileService.profile)
         
         addGradients()
+        addSubViews()
+        configureConstraints()
     }
     
-    //     func updateProfileDetails(profile: Profile?) {
-    //        guard let profile = profile else { return }
-    //        nameLabel.text = profile.name
-    //        loginNameLabel.text = profile.loginName
-    //        descriptionLabel.text = profile.bio
-    //
-    //        profileImageServiceObserver = NotificationCenter.default.addObserver(
-    //            forName: ProfileImageService.DidChangeNotification,
-    //            object: nil,
-    //            queue: .main
-    //        ) { [weak self] _ in
-    //            guard let self = self else { return }
-    //            self.updateAvatar()
-    //        }
-    //        updateAvatar()
-    //    }
+   
     func updateProfileDetails(profile: Profile?) {
         guard let profile = profile else { return }
         nameLabel.text = profile.name
@@ -242,6 +229,7 @@ private extension ProfileViewController {
             switch result {
             case .success:
                 self.removeGradients()
+                print("")
             case .failure:
                 print("!ОШИБКА загрузки аватара")
             }
@@ -249,35 +237,38 @@ private extension ProfileViewController {
     }
     
     func addGradients() {
-        let avatarGradient = translucentGradient.getGradient(
-            size: CGSize(
-                width: 70,
-                height: 70
-            ),
-            cornerRadius: avatarImageView.layer.cornerRadius)
-        avatarImageView.layer.addSublayer(avatarGradient)
-        animationLayers.insert(avatarGradient)
-        
-        let nameLabelGradient = translucentGradient.getGradient(size: CGSize(
-            width: 223,//nameLabel.bounds.width,
-            height: 27//nameLabel.bounds.height
-        ))
-        nameLabel.layer.addSublayer(nameLabelGradient)
-        animationLayers.insert(nameLabelGradient)
-        
-        let descriptionLabelGradient = translucentGradient.getGradient(size: CGSize(
-            width: 223,//descriptionLabel.bounds.width,
-            height: 20//descriptionLabel.bounds.height
-        ))
-        descriptionLabel.layer.addSublayer(descriptionLabelGradient)
-        animationLayers.insert(descriptionLabelGradient)
-        
-        let loginLabelGradient = translucentGradient.getGradient(size: CGSize(
-            width: 223,//loginNameLabel.bounds.width,
-            height: 20
-        ))
-        loginNameLabel.layer.addSublayer(loginLabelGradient)
-        animationLayers.insert(loginLabelGradient)
+        DispatchQueue.main.async { [weak self] in
+                     guard let self = self else { return }
+                     let avatarGradient = translucentGradient.getGradient(
+                         size: CGSize(
+                             width: 70,
+                             height: 70
+                         ),
+                         cornerRadius: avatarImageView.layer.cornerRadius)
+                     avatarImageView.layer.addSublayer(avatarGradient)
+                     animationLayers.insert(avatarGradient)
+
+                     let nameLabelGradient = translucentGradient.getGradient(size: CGSize(
+                         width: nameLabel.bounds.width,
+                         height: nameLabel.bounds.height
+                     ))
+                     nameLabel.layer.addSublayer(nameLabelGradient)
+                     animationLayers.insert(nameLabelGradient)
+
+                     let descriptionLabelGradient = translucentGradient.getGradient(size: CGSize(
+                         width: descriptionLabel.bounds.width,
+                         height: descriptionLabel.bounds.height
+                     ))
+                     descriptionLabel.layer.addSublayer(descriptionLabelGradient)
+                     animationLayers.insert(descriptionLabelGradient)
+
+                     let loginLabelGradient = translucentGradient.getGradient(size: CGSize(
+                         width: loginNameLabel.bounds.width,
+                         height: loginNameLabel.bounds.height
+                     ))
+                     loginNameLabel.layer.addSublayer(loginLabelGradient)
+                     animationLayers.insert(loginLabelGradient)
+                 }
     }
     
     func removeGradients() {
