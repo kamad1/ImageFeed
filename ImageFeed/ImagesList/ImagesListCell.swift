@@ -26,6 +26,12 @@ final class ImagesListCell: UITableViewCell {
     private var animationLayer: CALayer?
     static let reuseIdentifier = Keys.reuseIdentifierName
     weak var delegate: ImagesListCellDelegate?
+    private let dateFormatter: DateFormatter = {
+             let formatter = DateFormatter()
+             formatter.dateStyle = .medium
+             formatter.timeStyle = .none
+             return formatter
+         }()
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -35,9 +41,14 @@ final class ImagesListCell: UITableViewCell {
 }
 
 extension ImagesListCell {
-    func configCell(using photoStringURL: String, with indexPath: IndexPath) -> Bool {
+    func configCell(using photoStringURL: String, with indexPath: IndexPath, date: Date?) -> Bool {
         gradientBackGroundFor(backgroundLabel)
-        dateLabel.text = Date().dateTimeString
+//        dateLabel.text = Date().dateTimeString
+        if let date = date {
+                     dateLabel.text = dateFormatter.string(from: date)
+                 } else {
+                     dateLabel.text = dateFormatter.string(from: Date())
+                 }
         
         var status = false
         
@@ -58,21 +69,11 @@ extension ImagesListCell {
             case .success(_):
                 self.removeGradient()
                 status = true
-                //                case .failure(let error):
-                //                    print("!ОШИБКА загрузки картинки \(error)")
             case .failure:
                 self.removeGradient()
                 cellImage.image = placeholderImage
             }
         }
-        
-        //        dateLabel.text = Date().dateTimeString
-        
-        //        let likeImageText = indexPath.row % 2 == 0 ? "like_button_on" : "like_button_off"
-        //        guard let likeImage = UIImage(named: likeImageText) else {
-        //            return status
-        //        }
-        //        likeButton.setImage(likeImage, for: .normal)
         
         return status
     }
