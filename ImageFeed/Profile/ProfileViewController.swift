@@ -14,17 +14,17 @@ final class ProfileViewController: UIViewController {
         static let avatarPlaceholderImageName = "avatar_placeholder"
         static let authViewControllerName = "AuthViewController"
     }
-    private var alertPresenter: AlertPresenter?
+    
     private var profileImageServiceObserver: NSObjectProtocol?
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
     private var label: UILabel?
     private let translucentGradient = TranslucentGradient()
+    private var alertPresenter: AlertPresenter?
     private var animationLayers = Set<CALayer>()
     
     private var avatarImageView: UIImageView = {
-        //        let imageView = UIImageView()
-        //        imageView.image = UIImage(named: "avatar")
+
         let imageView = UIImageView(image: UIImage(systemName: Keys.systemAvatarImageName))
         imageView.tintColor = .gray
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,6 @@ final class ProfileViewController: UIViewController {
     
     private var nameLabel: UILabel = {
         let labelname = UILabel()
-        //        labelname.text = "Екатерина Новикова"
         labelname.textAlignment = .left
         labelname.textColor = .white
         labelname.font = .systemFont(ofSize: 23, weight: UIFont.Weight.bold)
@@ -45,7 +44,6 @@ final class ProfileViewController: UIViewController {
     
     private  var loginNameLabel: UILabel = {
         let loginLabel = UILabel()
-        //        loginLabel.text = "@ekaterina_nov"
         loginLabel.textAlignment = .left
         loginLabel.textColor = .lightGray
         loginLabel.font = .systemFont(ofSize: 13)
@@ -56,7 +54,6 @@ final class ProfileViewController: UIViewController {
     
     private var descriptionLabel: UILabel = {
         let descriptionText = UILabel()
-        //        descriptionText.text = "Hello, World!"
         descriptionText.textColor = .white
         descriptionText.font = .systemFont(ofSize: 13)
         descriptionText.textAlignment = .left
@@ -65,32 +62,9 @@ final class ProfileViewController: UIViewController {
         return descriptionText
     }()
     
-    //    lazy var logoutButton: UIButton = {
-    //
-    //        let button = UIButton.systemButton(
-    //            with: UIImage(named: "logout_button") ?? UIImage(),
-    //            target: self,
-    //            action: #selector(Self.didTapLogoutButton)
-    //        )
-    //
-    //        button.tintColor = #colorLiteral(red: 0.9607843137, green: 0.4196078431, blue: 0.4235294118, alpha: 1)
-    //        button.translatesAutoresizingMaskIntoConstraints = false
-    //        if #available(iOS 14.0, *) {
-    //
-    //                      //TODO: Выход из профиля
-    //                    let logOutAction = UIAction(title: "logOut") { (ACTION) in
-    //                        ProfileViewController.logOut()
-    //                    }
-    //                    button.addAction(logOutAction, for: .touchUpInside)
-    //                } else {
-    //                   button.addTarget(ProfileViewController.self,
-    //                                    action: #selector(didTapLogoutButton),
-    //                                    for: .touchUpInside)
-    //               }
-    //        return button
-    //    }()
     
-    lazy var logoutButton: UIButton = {
+    
+     var logOutButton: UIButton = {
         
         let image = UIImage(named: Keys.logoutImageName) ?? UIImage(systemName: Keys.systemLogoutImageName)!
         
@@ -99,19 +73,7 @@ final class ProfileViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(image, for: .normal)
         button.tintColor = #colorLiteral(red: 0.9607843137, green: 0.4196078431, blue: 0.4235294118, alpha: 1)
-        
-//        if #available(iOS 14.0, *) {
-//
-//            //TODO: Выход из профиля
-//            let logOutAction = UIAction(title: Keys.logOutActionName) { (ACTION) in
-//                ProfileViewController.logOut()
-//            }
-//            button.addAction(logOutAction, for: .touchUpInside)
-//        } else {
-//            button.addTarget(ProfileViewController.self,
-//                             action: #selector(didTapLogoutButton),
-//                             for: .touchUpInside)
-//        }
+
         return button
     }()
     
@@ -137,7 +99,7 @@ final class ProfileViewController: UIViewController {
         descriptionLabelSetup()
         
         
-        view.addSubview(logoutButton)
+        view.addSubview(logOutButton)
         logoutButtonSetup()
         
         
@@ -149,7 +111,7 @@ final class ProfileViewController: UIViewController {
         addButtonAction()
     }
     
-   
+    
     func updateProfileDetails(profile: Profile?) {
         guard let profile = profile else { return }
         nameLabel.text = profile.name
@@ -197,29 +159,15 @@ final class ProfileViewController: UIViewController {
     }
     
     func logoutButtonSetup() {
-        logoutButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
-        logoutButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        logoutButton.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor).isActive = true
-        logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
+        logOutButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
+        logOutButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        logOutButton.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor).isActive = true
+        logOutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
     }
     
     @objc
     func didTapLogoutButton() {
-        let alert = AlertModel(title: "Пока, пока!",
-                                        message: "Уверены что хотите выйти?",
-                                        buttonText: "Да",
-                                        completion: { [weak self] in
-                     guard let self = self else { return }
-                     self.logOut()
-                 },
-                                        secondButtonText: "Нет",
-                                        secondCompletion: { [weak self] in
-                     guard let self = self else { return }
-
-                     self.dismiss(animated: true)
-                 })
-
-                 alertPresenter?.show(alert)
+        showAlertBeforeExit()
     }
     
 }
@@ -252,39 +200,42 @@ private extension ProfileViewController {
     }
     
     func addGradients() {
-        DispatchQueue.main.async { [weak self] in
-                     guard let self = self else { return }
-                     let avatarGradient = translucentGradient.getGradient(
-                         size: CGSize(
-                             width: 70,
-                             height: 70
-                         ),
-                         cornerRadius: avatarImageView.layer.cornerRadius)
-                     avatarImageView.layer.addSublayer(avatarGradient)
-                     animationLayers.insert(avatarGradient)
-
-                     let nameLabelGradient = translucentGradient.getGradient(size: CGSize(
-                         width: nameLabel.bounds.width,
-                         height: nameLabel.bounds.height
-                     ))
-                     nameLabel.layer.addSublayer(nameLabelGradient)
-                     animationLayers.insert(nameLabelGradient)
-
-                     let descriptionLabelGradient = translucentGradient.getGradient(size: CGSize(
-                         width: descriptionLabel.bounds.width,
-                         height: descriptionLabel.bounds.height
-                     ))
-                     descriptionLabel.layer.addSublayer(descriptionLabelGradient)
-                     animationLayers.insert(descriptionLabelGradient)
-
-                     let loginLabelGradient = translucentGradient.getGradient(size: CGSize(
-                         width: loginNameLabel.bounds.width,
-                         height: loginNameLabel.bounds.height
-                     ))
-                     loginNameLabel.layer.addSublayer(loginLabelGradient)
-                     animationLayers.insert(loginLabelGradient)
-                 }
+        //        DispatchQueue.main.async { [weak self] in
+        //                     guard let self = self else { return }
+        let avatarGradient = translucentGradient.getGradient(
+            size: CGSize(
+                width: 70,
+                height: 70
+            ),
+            cornerRadius: avatarImageView.layer.cornerRadius)
+        avatarImageView.layer.addSublayer(avatarGradient)
+        animationLayers.insert(avatarGradient)
+        
+        let nameLabelGradient = translucentGradient.getGradient(size: CGSize(
+            width: nameLabel.bounds.width,
+            height: nameLabel.bounds.height
+        ))
+        nameLabel.layer.addSublayer(nameLabelGradient)
+        animationLayers.insert(nameLabelGradient)
+        
+        let descriptionLabelGradient = translucentGradient.getGradient(size: CGSize(
+            width: descriptionLabel.bounds.width,
+            height: descriptionLabel.bounds.height
+        ))
+        descriptionLabel.layer.addSublayer(descriptionLabelGradient)
+        animationLayers.insert(descriptionLabelGradient)
+        
+        let loginLabelGradient = translucentGradient.getGradient(size: CGSize(
+            width: loginNameLabel.bounds.width,
+            height: loginNameLabel.bounds.height
+        ))
+        loginNameLabel.layer.addSublayer(loginLabelGradient)
+        animationLayers.insert(loginLabelGradient)
     }
+}
+
+private extension ProfileViewController {
+    
     
     func removeGradients() {
         for gradient in animationLayers {
@@ -293,34 +244,42 @@ private extension ProfileViewController {
     }
     
     func addButtonAction() {
-             let alert = AlertModel(title: "Пока, пока!",
-                                    message: "Уверены что хотите выйти?",
-                                    buttonText: "Да",
-                                    completion: { [weak self] in
-                 guard let self = self else { return }
-                 self.logOut()
-             },
-                                    secondButtonText: "Нет",
-                                    secondCompletion: { [weak self] in
-                 guard let self = self else { return }
-
-                 self.dismiss(animated: true)
-             })
-
-             if #available(iOS 14.0, *) {
-                 let logOutAction = UIAction(title: Keys.logOutActionName) { [weak self] (ACTION) in
-                     guard let self = self else { return }
-                     self.alertPresenter?.show(alert)
-                 }
-                 logoutButton.addAction(logOutAction, for: .touchUpInside)
-             } else {
-                 logoutButton.addTarget(ProfileViewController.self,
-                                  action: #selector(didTapLogoutButton),
-                                  for: .touchUpInside)
-             }
-         }
+        if #available(iOS 14.0, *) {
+            let logOutAction = UIAction(title: Keys.logOutActionName) { [weak self] (ACTION) in
+                guard let self = self else { return }
+                self.showAlertBeforeExit()
+            }
+            logOutButton.addAction(logOutAction, for: .touchUpInside)
+        } else {
+            logOutButton.addTarget(ProfileViewController.self,
+                                   action: #selector(didTapLogoutButton),
+                                   for: .touchUpInside)
+        }
+    }
     
-     func logOut() {
+    func showAlertBeforeExit(){
+        DispatchQueue.main.async {
+            let alert = AlertModel(
+                title: "Пока, пока!",
+                message: "Уверены что хотите выйти?",
+                buttonText: "Да",
+                completion: { [weak self] in
+                    guard let self = self else { return }
+                    self.logOut()
+                },
+                secondButtonText: "Нет",
+                secondCompletion: { [weak self] in
+                    guard let self = self else { return }
+                    
+                    self.dismiss(animated: true)
+                })
+            
+            self.alertPresenter?.show(alert)
+        }
+    }
+    
+    
+    func logOut() {
         OAuth2TokenStorage().token = nil
         WebViewViewController.cleanCookies()
         
@@ -329,15 +288,14 @@ private extension ProfileViewController {
             return
         }
         
-        let authViewController = UIStoryboard(name: Keys.main, bundle: .main).instantiateViewController(withIdentifier: Keys.authViewControllerName)
-        window.rootViewController = authViewController
+        window.rootViewController = SplashViewController()
     }
     
 }
 
 extension ProfileViewController: AlertPresentableDelagate {
-     func present(alert: UIAlertController, animated flag: Bool) {
-         self.present(alert, animated: flag)
-     }
- }
+    func present(alert: UIAlertController, animated flag: Bool) {
+        self.present(alert, animated: flag)
+    }
+}
 

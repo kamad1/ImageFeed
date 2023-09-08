@@ -39,6 +39,7 @@
 		813BEF662A9E974B00BFE1AE /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813BEF652A9E974B00BFE1AE /* DateExtensions.swift */; };
 		813BEF682A9E976900BFE1AE /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813BEF672A9E976900BFE1AE /* StringExtensions.swift */; };
 		81771DA12AA91E59003A64DF /* TranslucentGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81771DA02AA91E59003A64DF /* TranslucentGradient.swift */; };
+		81771DA32AAA6DEB003A64DF /* DateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81771DA22AAA6DEB003A64DF /* DateService.swift */; };
 		81B8F4752A6BC11500EC9A70 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B8F4742A6BC11500EC9A70 /* SingleImageViewController.swift */; };
 		81F53B1A2A5B39BF00BCB33C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F53B192A5B39BF00BCB33C /* AppDelegate.swift */; };
 		81F53B1C2A5B39BF00BCB33C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F53B1B2A5B39BF00BCB33C /* SceneDelegate.swift */; };
@@ -100,6 +101,7 @@
 		813BEF652A9E974B00BFE1AE /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		813BEF672A9E976900BFE1AE /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		81771DA02AA91E59003A64DF /* TranslucentGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentGradient.swift; sourceTree = "<group>"; };
+		81771DA22AAA6DEB003A64DF /* DateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateService.swift; sourceTree = "<group>"; };
 		81B8F4742A6BC11500EC9A70 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		81F53B162A5B39BF00BCB33C /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81F53B192A5B39BF00BCB33C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				813BEF472A94E7BA00BFE1AE /* ProfileImageService.swift */,
 				813BEF432A89F17400BFE1AE /* ProfileService.swift */,
 				813BEF632A9E909A00BFE1AE /* ImagesListService.swift */,
+				81771DA22AAA6DEB003A64DF /* DateService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				813BEF642A9E909A00BFE1AE /* ImagesListService.swift in Sources */,
 				813BEF602A9E8FA800BFE1AE /* PhotoResult.swift in Sources */,
 				813BEF622A9E8FE400BFE1AE /* Photos.swift in Sources */,
+				81771DA32AAA6DEB003A64DF /* DateService.swift in Sources */,
 				813BEF3D2A86BB7000BFE1AE /* UIColor.swift in Sources */,
 				813BEF2D2A817DC700BFE1AE /* AuthViewControllerDelegate.swift in Sources */,
 				813BEF5E2A97F08F00BFE1AE /* TabBarController.swift in Sources */,
