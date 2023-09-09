@@ -93,6 +93,7 @@ extension ImagesListCell {
         guard let likeImage = UIImage(named: likeImageText) else { return }
         likeButton.setImage(likeImage, for: .normal)
     }
+    
     func addGradient(size: CGSize) {
         
         let cellGradient = translucentGradient.getGradient(

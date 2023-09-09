@@ -15,7 +15,6 @@ final class ImagesListService {
     private var lastLoadedPage: Int?
     private var task: URLSessionTask?
     private (set) var photos: [Photo] = []
-    //    static let DidChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
     static let DidChangeNotification = Notification.Name(rawValue: Keys.nameNotification)
     
     //MARK: - Main function
@@ -27,7 +26,6 @@ final class ImagesListService {
         guard let token = token else { return }
         
         var requestPhotos = photosRequest(page: nextPage, perPage: 10)
-        //        requestPhotos?.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         requestPhotos?.addValue("\(Keys.bearer) \(token)", forHTTPHeaderField: Keys.authorization)
         
         guard let requestPhotos = requestPhotos else { return }
@@ -82,7 +80,6 @@ final class ImagesListService {
         
         var requestLike = isLike ? unlikeRequest(photoId: photoId) : likeRequest(photoId: photoId)
         guard let token = token else { return }
-        //             requestLike?.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         requestLike?.addValue("\(Keys.bearer) \(token)", forHTTPHeaderField: Keys.authorization)
         
         guard let requestLike = requestLike else { return }

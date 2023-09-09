@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DateService {
+final class DateService {
      static let shared = DateService()
 
      private let dateFormatter: DateFormatter = {
@@ -22,7 +22,7 @@ class DateService {
      //MARK: - Initialization
      private init() { }
 
-     func dateFromString(str: String?) -> Date {
+     func dateFromString(str: String?) -> Date? {
          guard let str = str,
                let date = dateFormatterIso.date(from: str) else {
              return Date()
@@ -30,7 +30,7 @@ class DateService {
          return date
      }
 
-     func stringFromDate(date: Date?) -> String {
+     func stringFromDate(date: Date?) -> String? {
          guard let date = date else {
              return dateFormatter.string(from: Date())
          }

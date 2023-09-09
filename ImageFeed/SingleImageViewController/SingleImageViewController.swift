@@ -139,8 +139,6 @@ extension SingleImageViewController: UIScrollViewDelegate {
     }
 }
 
-
-
 extension SingleImageViewController: AlertPresentableDelagate {
     func present(alert: UIAlertController, animated flag: Bool) {
         self.present(alert, animated: flag)

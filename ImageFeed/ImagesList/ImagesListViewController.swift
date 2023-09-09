@@ -167,7 +167,6 @@ private extension ImagesListViewController {
                      self.photos[indexPath.row].isLiked = isLiked
                      cell.setIsLiked(isLiked)
                      UIBlockingProgressHUD.dismiss()
-//                 case .failure(let error):
              case .failure:
                      UIBlockingProgressHUD.dismiss()
 //                     // TODO: Показать ошибку с использованием UIAlertController
@@ -178,6 +177,7 @@ private extension ImagesListViewController {
      }
  }
 
+// MARK: - AlertPresentableDelagate
 extension ImagesListViewController: AlertPresentableDelagate {
      func present(alert: UIAlertController, animated flag: Bool) {
          self.present(alert, animated: flag)

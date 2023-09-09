@@ -200,8 +200,6 @@ private extension ProfileViewController {
     }
     
     func addGradients() {
-        //        DispatchQueue.main.async { [weak self] in
-        //                     guard let self = self else { return }
         let avatarGradient = translucentGradient.getGradient(
             size: CGSize(
                 width: 70,
@@ -235,8 +233,7 @@ private extension ProfileViewController {
 }
 
 private extension ProfileViewController {
-    
-    
+        
     func removeGradients() {
         for gradient in animationLayers {
             gradient.removeFromSuperlayer()
@@ -290,7 +287,6 @@ private extension ProfileViewController {
         
         window.rootViewController = SplashViewController()
     }
-    
 }
 
 extension ProfileViewController: AlertPresentableDelagate {
