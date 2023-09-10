@@ -25,15 +25,18 @@ final class DateService {
      func dateFromString(str: String?) -> Date? {
          guard let str = str,
                let date = dateFormatterIso.date(from: str) else {
-             return Date()
+             return nil
+//             return Date()
          }
          return date
      }
 
      func stringFromDate(date: Date?) -> String? {
          guard let date = date else {
-             return dateFormatter.string(from: Date())
+             return ""
+//             return dateFormatter.string(from: Date())
          }
+         
          return dateFormatter.string(from: date)
      }
  }
