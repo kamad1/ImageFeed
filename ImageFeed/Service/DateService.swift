@@ -26,7 +26,6 @@ final class DateService {
          guard let str = str,
                let date = dateFormatterIso.date(from: str) else {
              return nil
-//             return Date()
          }
          return date
      }
@@ -34,9 +33,7 @@ final class DateService {
      func stringFromDate(date: Date?) -> String? {
          guard let date = date else {
              return nil
-//             return dateFormatter.string(from: Date())
          }
-         
          return dateFormatter.string(from: date)
      }
  }
