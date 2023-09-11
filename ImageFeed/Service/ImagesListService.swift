@@ -44,8 +44,7 @@ final class ImagesListService {
                                     width: photo.width,
                                     height: photo.height
                                 ),
-//                                createdAt: DateService.shared.dateFromString(str: nil),
-                                createdAt: DateService.shared.dateFromString(str: nil),
+                                createdAt: DateService.shared.dateFromString(str: photo.createdAt),                            
                                 welcomeDescription: photo.description,
                                 thumbImageURL: photo.urls.thumb,
                                 largeImageURL: photo.urls.full,

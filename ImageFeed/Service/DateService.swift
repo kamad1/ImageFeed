@@ -33,10 +33,13 @@ final class DateService {
 
      func stringFromDate(date: Date?) -> String? {
          guard let date = date else {
-             return ""
+             return nil
 //             return dateFormatter.string(from: Date())
          }
          
          return dateFormatter.string(from: date)
      }
  }
+
+
+
