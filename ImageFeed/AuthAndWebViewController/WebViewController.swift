@@ -7,9 +7,7 @@ final class WebViewViewController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet private var progressView: UIProgressView!
     
-    weak var delegate: WebViewViewControllerDelegate?
-    private var estimatedProgressObservtion: NSKeyValueObservation?
-    private var alertPresenter: AlertPresenterProtocol?
+
     private struct WebKeys {
         static let clientId = "client_id"
         static let redirectUri = "redirect_uri"
@@ -23,6 +21,10 @@ final class WebViewViewController: UIViewController {
         static let authPath = "/oauth/authorize/native"
     }
     
+    weak var delegate: WebViewViewControllerDelegate?
+    private var estimatedProgressObservtion: NSKeyValueObservation?
+    private var alertPresenter: AlertPresenterProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,6 +32,7 @@ final class WebViewViewController: UIViewController {
         updateProgress()
         loadWebView()
         addEstimatedProgressObservtion()
+        alertPresenter = AlertPresenter(delagate: self)
         
     }
     
@@ -62,11 +65,6 @@ final class WebViewViewController: UIViewController {
         } else {
             super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
-    }
-    
-    private func updateProgress() {
-        progressView.progress = Float(webView.estimatedProgress)
-        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
     }
 
 }
@@ -121,6 +119,20 @@ extension WebViewViewController {
         webView.load(request)
     }
     
+    static func cleanCookies() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        WKWebsiteDataStore.default().fetchDataRecords(
+            ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+                records.forEach { record in
+                    WKWebsiteDataStore.default().removeData(
+                        ofTypes: record.dataTypes,
+                        for: [record],
+                        completionHandler: {})
+                }
+            }
+    }
+    
+    
     func addEstimatedProgressObservtion() {
         estimatedProgressObservtion = webView.observe(
             \.estimatedProgress,
@@ -130,6 +142,11 @@ extension WebViewViewController {
                  self.updateProgress()
              }
         )
+    }
+    
+    private func updateProgress() {
+        progressView.progress = Float(webView.estimatedProgress)
+        progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
     }
 }
 //MARK: - AlertPresenter
@@ -142,7 +159,7 @@ extension WebViewViewController {
             guard let self = self else { return }
             dismiss(animated: true)
         })
-        alertPresenter = AlertPresenter(delagate: self)
+
         alertPresenter?.show(alert)
     }
 }

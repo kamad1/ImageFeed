@@ -2,11 +2,7 @@
 import Foundation
 
 final class ProfileService {
-    static let shared = ProfileService()
-    
-    private let urlSession = URLSession.shared
-    private var task: URLSessionTask?
-    private(set) var profile: Profile?
+ 
     private struct Keys {
         static let authorization = "Authorization"
         static let bearer = "Bearer"
@@ -15,6 +11,12 @@ final class ProfileService {
         static let httpMethodGet = "GET"
     }
     
+    static let shared = ProfileService()
+    
+    private let urlSession = URLSession.shared
+    private var task: URLSessionTask?
+    private(set) var profile: Profile?
+    
     private init() { }
     
     func fetchProfile(
@@ -22,7 +24,7 @@ final class ProfileService {
         completion: @escaping (Result<Profile, Error>) -> Void
     ) {
         assert(Thread.isMainThread)
-        if profile != nil { return }
+        if task != nil { return }
         task?.cancel()
         
         var requestProfile = selfProfileRequest
