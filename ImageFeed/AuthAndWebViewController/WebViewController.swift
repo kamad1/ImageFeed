@@ -21,11 +21,11 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
 //        static let scope = "scope"
 //    }
     
-    private struct WebConstants {
+//    private struct WebConstants {
 //        static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-        static let code = "code"
-        static let authPath = "/oauth/authorize/native"
-    }
+//        static let code = "code"
+//        static let authPath = "/oauth/authorize/native"
+//    }
     
     var presenter: WebViewPresenterProtocol?
     weak var delegate: WebViewViewControllerDelegate?
@@ -41,6 +41,7 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
 //        addEstimatedProgressObservtion()
         alertPresenter = AlertPresenter(delagate: self)
         presenter?.viewDidLoad()
+        webView.navigationDelegate = self
     }
     
     @IBAction private func didTapBackButton(_ sender: Any?) {
@@ -58,10 +59,10 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
 //        updateProgress()
 //    }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), context: nil)
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), context: nil)
+//    }
     
 //    override func observeValue(forKeyPath keyPath: String?,
 //                               of object: Any?,
@@ -95,13 +96,15 @@ extension WebViewViewController: WKNavigationDelegate {  //OK
     }
     
     private func code(from navigationAction: WKNavigationAction) -> String? {
-        if let url = navigationAction.request.url,
-           let urlComponents = URLComponents(string: url.absoluteString),
-           urlComponents.path == WebConstants.authPath,
-           let items = urlComponents.queryItems,
-           let codeItem = items.first(where: { $0.name == WebConstants.code })
-        {
-            return codeItem.value
+//        if let url = navigationAction.request.url,
+//           let urlComponents = URLComponents(string: url.absoluteString),
+//           urlComponents.path == WebConstants.authPath,
+//           let items = urlComponents.queryItems,
+//           let codeItem = items.first(where: { $0.name == WebConstants.code })
+//        {
+//            return codeItem.value
+        if let url = navigationAction.request.url {
+                     return presenter?.code(from: url)
         } else {
             return nil
         }
