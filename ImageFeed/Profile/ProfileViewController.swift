@@ -3,21 +3,31 @@ import UIKit
 import Kingfisher
 import WebKit
 
-final class ProfileViewController: UIViewController {
+public protocol ProfileViewControllerProtocol: AnyObject {
+     var presenter: ProfileViewPresenterProtocol? { get set }
+     func addButtonActionBeforeIos14(action: Selector)
+     @available(iOS 14.0, *) func addButtonActionAfterIos14(logOutAction: UIAction)
+     func showAlertBeforeExit()
+     func logOut(window: UIWindow)
+     func updateProfileInfo(profile: Profile?)
+     func updateAvatar(url: URL, placeholder: UIImage)
+ }
+
+final class ProfileViewController: UIViewController & ProfileViewControllerProtocol {
     
     private struct Keys {
-        static let main = "Main"
+//        static let main = "Main"
         static let logoutImageName = "logout_button"
         static let systemLogoutImageName = "ipad.and.arrow.forward"
-        static let logOutActionName = "showAlert"
+//        static let logOutActionName = "showAlert"
         static let systemAvatarImageName = "person.crop.circle.fill"
-        static let avatarPlaceholderImageName = "avatar_placeholder"
-        static let authViewControllerName = "AuthViewController"
+//        static let avatarPlaceholderImageName = "avatar_placeholder"
+//        static let authViewControllerName = "AuthViewController"
     }
-    
+    var presenter: ProfileViewPresenterProtocol?
     private var profileImageServiceObserver: NSObjectProtocol?
-    private let profileService = ProfileService.shared
-    private let profileImageService = ProfileImageService.shared
+//    private let profileService = ProfileService.shared
+//    private let profileImageService = ProfileImageService.shared
     private var label: UILabel?
     private let translucentGradient = TranslucentGradient()
     private var alertPresenter: AlertPresenter?
@@ -104,15 +114,15 @@ final class ProfileViewController: UIViewController {
         
         
         
-        updateProfileDetails(profile: profileService.profile)
-        
+//        updateProfileDetails(profile: profileService.profile)
+        presenter?.viewDidLoad()
         addGradients()
         alertPresenter = AlertPresenter(delagate: self)
-        addButtonAction()
+//        addButtonAction()
     }
     
     
-    func updateProfileDetails(profile: Profile?) {
+    func updateProfileInfo(profile: Profile?) {
         guard let profile = profile else { return }
         nameLabel.text = profile.name
         loginNameLabel.text = profile.loginName
@@ -124,9 +134,9 @@ final class ProfileViewController: UIViewController {
             queue: .main
         ) { [weak self] _ in
             guard let self = self else { return }
-            self.updateAvatar()
+            self.presenter?.updateAvatar()
         }
-        updateAvatar()
+        presenter?.updateAvatar()
     }
     
     func avatarImageSetup() {
@@ -165,27 +175,22 @@ final class ProfileViewController: UIViewController {
         logOutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
     }
     
-    @objc
-    func didTapLogoutButton() {
-        showAlertBeforeExit()
-    }
+//    @objc
+//    func didTapLogoutButton() {
+//        showAlertBeforeExit()
+//    }
     
 }
 
-private extension ProfileViewController {
-    func updateAvatar() {
-        guard
-            let avatarURL = profileImageService.avatarURL,
-            let url = URL(string: avatarURL)
-        else { return }
-        
-        let avatarPlaceholderImage = UIImage(named: Keys.avatarPlaceholderImageName)
-        
+ extension ProfileViewController {
+     func updateAvatar(url: URL, placeholder: UIImage) {
+
         let processor = RoundCornerImageProcessor(cornerRadius: 61)
         avatarImageView.kf.indicatorType = .activity
         avatarImageView.kf.setImage(
             with: url,
-            placeholder: avatarPlaceholderImage,
+//            placeholder: avatarPlaceholderImage,
+            placeholder: placeholder,
             options: [.processor(processor)]
         ){ [weak self] result in
             guard let self = self else { return }
@@ -194,7 +199,8 @@ private extension ProfileViewController {
                 self.removeGradients()
             case .failure:
                 self.removeGradients()
-                avatarImageView.image = avatarPlaceholderImage
+//                avatarImageView.image = avatarPlaceholderImage
+                avatarImageView.image = placeholder
             }
         }
     }
@@ -232,7 +238,7 @@ private extension ProfileViewController {
     }
 }
 
-private extension ProfileViewController {
+ extension ProfileViewController {
         
     func removeGradients() {
         for gradient in animationLayers {
@@ -240,19 +246,32 @@ private extension ProfileViewController {
         }
     }
     
-    func addButtonAction() {
-        if #available(iOS 14.0, *) {
-            let logOutAction = UIAction(title: Keys.logOutActionName) { [weak self] (ACTION) in
-                guard let self = self else { return }
-                self.showAlertBeforeExit()
-            }
-            logOutButton.addAction(logOutAction, for: .touchUpInside)
-        } else {
-            logOutButton.addTarget(ProfileViewController.self,
-                                   action: #selector(didTapLogoutButton),
-                                   for: .touchUpInside)
-        }
-    }
+//    func addButtonAction() {
+//        if #available(iOS 14.0, *) {
+//            let logOutAction = UIAction(title: Keys.logOutActionName) { [weak self] (ACTION) in
+//                guard let self = self else { return }
+//                self.showAlertBeforeExit()
+//            }
+//            logOutButton.addAction(logOutAction, for: .touchUpInside)
+//        } else {
+//            logOutButton.addTarget(ProfileViewController.self,
+//                                   action: #selector(didTapLogoutButton),
+//                                   for: .touchUpInside)
+//        }
+     func addButtonActionBeforeIos14(action: Selector) {
+              logOutButton.addTarget(
+                  ProfileViewController.self,
+                  action: action,
+                  for: .touchUpInside
+              )
+          }
+
+          @available(iOS 14.0, *)
+          func addButtonActionAfterIos14(logOutAction: UIAction) {
+              logOutButton.addAction(logOutAction, for: .touchUpInside)
+          }
+     
+    
     
     func showAlertBeforeExit(){
         DispatchQueue.main.async {
@@ -262,7 +281,7 @@ private extension ProfileViewController {
                 buttonText: "Да",
                 completion: { [weak self] in
                     guard let self = self else { return }
-                    self.logOut()
+                    self.presenter?.logOut()
                 },
                 secondButtonText: "Нет",
                 secondCompletion: { [weak self] in
@@ -276,15 +295,16 @@ private extension ProfileViewController {
     }
     
     
-    func logOut() {
-        OAuth2TokenStorage().token = nil
-        WebViewViewController.cleanCookies()
-        
-        guard let window = UIApplication.shared.windows.first else {
-            assertionFailure("Invalid Configuration")
-            return
-        }
-        
+//    func logOut() {
+//        OAuth2TokenStorage().token = nil
+//        WebViewViewController.cleanCookies()
+//
+//        guard let window = UIApplication.shared.windows.first else {
+//            assertionFailure("Invalid Configuration")
+//            return
+//        }
+     
+     func logOut(window: UIWindow) {
         window.rootViewController = SplashViewController()
     }
 }
