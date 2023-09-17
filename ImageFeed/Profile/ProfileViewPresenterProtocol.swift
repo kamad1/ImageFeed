@@ -2,7 +2,7 @@
 import Foundation
 import UIKit
 
- public protocol ProfileViewPresenterProtocol {
+  protocol ProfileViewPresenterProtocol {
      var view: ProfileViewControllerProtocol? { get set }
      func viewDidLoad()
      func logOut()
