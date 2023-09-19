@@ -87,6 +87,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         
         
         let button = UIButton(type: .custom)
+        button.accessibilityIdentifier = "logOutButton"
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(image, for: .normal)
         button.tintColor = #colorLiteral(red: 0.9607843137, green: 0.4196078431, blue: 0.4235294118, alpha: 1)

@@ -22,7 +22,7 @@ final class ImagesListService {
         let nextPage = getNumberOfNextPage()
         
         assert(Thread.isMainThread)
-        if task != nil { return }
+        if task != nil { return } else { task?.cancel() }
         guard let token = token else { return }
         
         var requestPhotos = photosRequest(page: nextPage, perPage: 10)
@@ -61,6 +61,7 @@ final class ImagesListService {
                     
                     self.task = nil
                 case .failure:
+                    self.task = nil
                     assertionFailure("Failed to load images")
                 }
             }
@@ -76,7 +77,7 @@ final class ImagesListService {
         _ completion: @escaping (Result<Bool, Error>) -> Void
     ) {
         assert(Thread.isMainThread)
-        if task != nil { return }
+        if task != nil { return } else { task?.cancel() }
         
         var requestLike = isLike ? unlikeRequest(photoId: photoId) : likeRequest(photoId: photoId)
         guard let token = token else { return }
@@ -109,6 +110,7 @@ final class ImagesListService {
                     
                     self.task = nil
                 case .failure(let error):
+                    self.task = nil
                     completion(.failure(error))
 //                    print("!ОШИБКА в запросе лайка \(error)")
                 }

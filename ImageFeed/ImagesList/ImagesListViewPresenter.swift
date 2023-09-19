@@ -72,14 +72,14 @@ final class ImagesListViewPresenter: ImagesListViewPresenterProtocol {
             isLike: isLiked
         ) { [weak self] result in
             guard let self = self else { return }
-            
+            UIBlockingProgressHUD.dismiss()
             switch result {
             case .success(let isLiked):
                 self.photos[indexPath.row].isLiked = isLiked
                 cell.setIsLiked(isLiked)
-                UIBlockingProgressHUD.dismiss()
+//                UIBlockingProgressHUD.dismiss()
             case .failure:
-                UIBlockingProgressHUD.dismiss()
+//                UIBlockingProgressHUD.dismiss()
                 view?.showError()
             }
         }
