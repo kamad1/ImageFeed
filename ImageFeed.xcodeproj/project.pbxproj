@@ -49,6 +49,10 @@
 		81771DB12AB260E7003A64DF /* ImageListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81771DB02AB260E7003A64DF /* ImageListTests.swift */; };
 		81771DB32AB26149003A64DF /* ProfileViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81771DB22AB26149003A64DF /* ProfileViewTests.swift */; };
 		81771DB52AB6EE7E003A64DF /* ImagesListViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81771DB42AB6EE7E003A64DF /* ImagesListViewPresenter.swift */; };
+		81771DBA2AB8F325003A64DF /* ImageListPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81771DB92AB8F325003A64DF /* ImageListPresenterSpy.swift */; };
+		81771DBC2AB8F407003A64DF /* ImageListViewControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81771DBB2AB8F407003A64DF /* ImageListViewControllerSpy.swift */; };
+		81771DBE2AB8F458003A64DF /* ProfileViewControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81771DBD2AB8F458003A64DF /* ProfileViewControllerSpy.swift */; };
+		81771DC02AB8F4B1003A64DF /* ProfileViewPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81771DBF2AB8F4B1003A64DF /* ProfileViewPresenterSpy.swift */; };
 		81B8F4752A6BC11500EC9A70 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B8F4742A6BC11500EC9A70 /* SingleImageViewController.swift */; };
 		81F53B1A2A5B39BF00BCB33C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F53B192A5B39BF00BCB33C /* AppDelegate.swift */; };
 		81F53B1C2A5B39BF00BCB33C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F53B1B2A5B39BF00BCB33C /* SceneDelegate.swift */; };
@@ -120,6 +124,10 @@
 		81771DB02AB260E7003A64DF /* ImageListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListTests.swift; sourceTree = "<group>"; };
 		81771DB22AB26149003A64DF /* ProfileViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTests.swift; sourceTree = "<group>"; };
 		81771DB42AB6EE7E003A64DF /* ImagesListViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListViewPresenter.swift; sourceTree = "<group>"; };
+		81771DB92AB8F325003A64DF /* ImageListPresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListPresenterSpy.swift; sourceTree = "<group>"; };
+		81771DBB2AB8F407003A64DF /* ImageListViewControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListViewControllerSpy.swift; sourceTree = "<group>"; };
+		81771DBD2AB8F458003A64DF /* ProfileViewControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerSpy.swift; sourceTree = "<group>"; };
+		81771DBF2AB8F4B1003A64DF /* ProfileViewPresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewPresenterSpy.swift; sourceTree = "<group>"; };
 		81B8F4742A6BC11500EC9A70 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 		81F53B162A5B39BF00BCB33C /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81F53B192A5B39BF00BCB33C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -262,6 +270,36 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
+		81771DB62AB8F1B6003A64DF /* ImageListTest */ = {
+			isa = PBXGroup;
+			children = (
+				81771DB02AB260E7003A64DF /* ImageListTests.swift */,
+				81771DB92AB8F325003A64DF /* ImageListPresenterSpy.swift */,
+				81771DBB2AB8F407003A64DF /* ImageListViewControllerSpy.swift */,
+			);
+			path = ImageListTest;
+			sourceTree = "<group>";
+		};
+		81771DB72AB8F1E2003A64DF /* ProfileViewTest */ = {
+			isa = PBXGroup;
+			children = (
+				81771DB22AB26149003A64DF /* ProfileViewTests.swift */,
+				81771DBD2AB8F458003A64DF /* ProfileViewControllerSpy.swift */,
+				81771DBF2AB8F4B1003A64DF /* ProfileViewPresenterSpy.swift */,
+			);
+			path = ProfileViewTest;
+			sourceTree = "<group>";
+		};
+		81771DB82AB8F206003A64DF /* WebViewTest */ = {
+			isa = PBXGroup;
+			children = (
+				81F53B302A5B39C000BCB33C /* WebViewTests.swift */,
+				81771DAA2AB1B3F4003A64DF /* WebViewPresenterSpy.swift */,
+				81771DAC2AB1B405003A64DF /* WebViewControllerSpy.swift */,
+			);
+			path = WebViewTest;
+			sourceTree = "<group>";
+		};
 		81B8F4732A6BC0A300EC9A70 /* SingleImageViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,11 +356,9 @@
 		81F53B2F2A5B39C000BCB33C /* ImageFeedTests */ = {
 			isa = PBXGroup;
 			children = (
-				81F53B302A5B39C000BCB33C /* WebViewTests.swift */,
-				81771DAA2AB1B3F4003A64DF /* WebViewPresenterSpy.swift */,
-				81771DAC2AB1B405003A64DF /* WebViewControllerSpy.swift */,
-				81771DB02AB260E7003A64DF /* ImageListTests.swift */,
-				81771DB22AB26149003A64DF /* ProfileViewTests.swift */,
+				81771DB72AB8F1E2003A64DF /* ProfileViewTest */,
+				81771DB62AB8F1B6003A64DF /* ImageListTest */,
+				81771DB82AB8F206003A64DF /* WebViewTest */,
 			);
 			path = ImageFeedTests;
 			sourceTree = "<group>";
@@ -545,10 +581,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				81F53B312A5B39C000BCB33C /* WebViewTests.swift in Sources */,
+				81771DBA2AB8F325003A64DF /* ImageListPresenterSpy.swift in Sources */,
 				81771DB12AB260E7003A64DF /* ImageListTests.swift in Sources */,
 				81771DAD2AB1B405003A64DF /* WebViewControllerSpy.swift in Sources */,
 				81771DB32AB26149003A64DF /* ProfileViewTests.swift in Sources */,
+				81771DC02AB8F4B1003A64DF /* ProfileViewPresenterSpy.swift in Sources */,
+				81771DBE2AB8F458003A64DF /* ProfileViewControllerSpy.swift in Sources */,
 				81771DAB2AB1B3F4003A64DF /* WebViewPresenterSpy.swift in Sources */,
+				81771DBC2AB8F407003A64DF /* ImageListViewControllerSpy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
