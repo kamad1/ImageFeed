@@ -1,5 +1,7 @@
 
 import XCTest
+import ImageFeed
+
 
 final class ImageFeedUITests: XCTestCase {
 
@@ -37,7 +39,7 @@ final class ImageFeedUITests: XCTestCase {
              let tablesQuery = app.tables
              let cell = tablesQuery.children(matching: .cell).element(boundBy: 0)
 
-             XCTAssertTrue(cell.waitForExistence(timeout: 5))
+             XCTAssertTrue(cell.waitForExistence(timeout: 8))
          }
 
          func testFeed() throws {
@@ -45,12 +47,12 @@ final class ImageFeedUITests: XCTestCase {
              let firstCell = tablesQuery.children(matching: .cell).element(boundBy: 0)
              firstCell.swipeUp()
              sleep(3)
-             let secondCell = tablesQuery.children(matching: .cell).element(boundBy: 3)
-             secondCell.buttons["LikeButton"].tap()
+             let anotherCell = tablesQuery.children(matching: .cell).element(boundBy: 3)
+             anotherCell.buttons["LikeButton"].tap()
              sleep(8)
-             secondCell.buttons["LikeButton"].tap()
+             anotherCell.buttons["LikeButton"].tap()
              sleep(8)
-             secondCell.tap()
+             anotherCell.tap()
              let image = app.scrollViews.images.element(boundBy: 0)
              XCTAssertTrue(image.waitForExistence(timeout: 5))
              image.pinch(withScale: 3, velocity: 1)

@@ -12,7 +12,7 @@ protocol AuthHelperProtocol {
      func code(from url: URL) -> String?
  }
 
- class AuthHelper: AuthHelperProtocol {
+ final class AuthHelper: AuthHelperProtocol {
      let configuration: AuthConfiguration
 
      init(configuration: AuthConfiguration = .standard) {
@@ -30,7 +30,7 @@ protocol AuthHelperProtocol {
          var urlComponents = URLComponents(string: configuration.authURLString)
          urlComponents?.queryItems = [
              URLQueryItem(name: configuration.clientId, value: configuration.accessKey),
-             URLQueryItem(name: configuration.redirectUri, value: configuration.redirectURI),
+             URLQueryItem(name: configuration.redirectUriName, value: configuration.redirectURI),
              URLQueryItem(name: configuration.responseType, value: configuration.code),
              URLQueryItem(name: configuration.scope, value: configuration.accessScope)
          ]

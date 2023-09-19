@@ -1,16 +1,10 @@
-//
-//  AuthConfiguration.swift
-//  ImageFeed
-//
-//  Created by Jedi on 13.09.2023.
-//
 
 import Foundation
 
-let AccessKey = "h6OHD3P5qMrGGmFzS6GRBr6xvJcKw4o7kXvstKJuKPk"
-let SecretKey = "aRrzMAK-umgi5Hh0UcKJ-Ne0NWZ-i7sbDCjrikw1Nn0"
-let RedirectURI = "urn:ietf:wg:oauth:2.0:oob"
-let AccessScope = "public+read_user+write_likes"
+//let AccessKey = "h6OHD3P5qMrGGmFzS6GRBr6xvJcKw4o7kXvstKJuKPk"
+//let SecretKey = "aRrzMAK-umgi5Hh0UcKJ-Ne0NWZ-i7sbDCjrikw1Nn0"
+//let RedirectURI = "urn:ietf:wg:oauth:2.0:oob"
+//let AccessScope = "public+read_user+write_likes"
 let DefaultBaseURL = URL(string: "https://api.unsplash.com")
 let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
 
@@ -27,15 +21,15 @@ struct AuthConfiguration {
      let code = "code"
      let authPath = "/oauth/authorize/native"
      let clientId = "client_id"
-     let redirectUri = "redirect_uri"
+     let redirectUriName = "redirect_uri"
      let responseType = "response_type"
      let scope = "scope"
 
      static var standard: AuthConfiguration {
-         return AuthConfiguration(accessKey: AccessKey,
-                                  secretKey: SecretKey,
-                                  redirectURI: RedirectURI,
-                                  accessScope: AccessScope,
+         return AuthConfiguration(accessKey: Constants.AccessKey,
+                                  secretKey: Constants.SecretKey,
+                                  redirectURI: Constants.RedirectURI,
+                                  accessScope: Constants.AccessScope,
                                   authURLString: unsplashAuthorizeURLString,
                                   defaultBaseURL: DefaultBaseURL)
      }
@@ -54,5 +48,14 @@ struct AuthConfiguration {
          self.accessScope = accessScope
          self.defaultBaseURL = defaultBaseURL
          self.authURLString = authURLString
+     }
+ }
+
+private extension AuthConfiguration {
+     enum Constants {
+         static let AccessKey = "h6OHD3P5qMrGGmFzS6GRBr6xvJcKw4o7kXvstKJuKPk"
+         static let SecretKey = "aRrzMAK-umgi5Hh0UcKJ-Ne0NWZ-i7sbDCjrikw1Nn0"
+         static let RedirectURI = "urn:ietf:wg:oauth:2.0:oob"
+         static let AccessScope = "public+read_user+write_likes"
      }
  }
