@@ -56,7 +56,7 @@ import UIKit
      }
 
      @objc
-     private func didTapButton() {
+      func didTapButton() {
          view?.showAlertBeforeExit()
      }
 

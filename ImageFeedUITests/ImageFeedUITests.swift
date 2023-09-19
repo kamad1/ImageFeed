@@ -3,12 +3,12 @@ import XCTest
 
 final class ImageFeedUITests: XCTestCase {
 
-    private let app = XCUIApplication() // переменная приложения
+    private let app = XCUIApplication()
          
          override func setUpWithError() throws {
-             continueAfterFailure = false // настройка выполнения тестов, которая прекратит выполнения тестов, если в тесте что-то пошло не так
+             continueAfterFailure = false
              
-             app.launch() // запускаем приложение перед каждым тестом
+             app.launch()
          }
 
          func testAuth() throws {
@@ -45,11 +45,11 @@ final class ImageFeedUITests: XCTestCase {
              let firstCell = tablesQuery.children(matching: .cell).element(boundBy: 0)
              firstCell.swipeUp()
              sleep(3)
-             let secondCell = tablesQuery.children(matching: .cell).element(boundBy: 1)
+             let secondCell = tablesQuery.children(matching: .cell).element(boundBy: 3)
              secondCell.buttons["LikeButton"].tap()
-             sleep(5)
+             sleep(8)
              secondCell.buttons["LikeButton"].tap()
-             sleep(5)
+             sleep(8)
              secondCell.tap()
              let image = app.scrollViews.images.element(boundBy: 0)
              XCTAssertTrue(image.waitForExistence(timeout: 5))
