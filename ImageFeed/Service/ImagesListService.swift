@@ -112,9 +112,9 @@ final class ImagesListService {
                     
                     
                 case .failure(let error):
-                   
+                    
                     completion(.failure(error))
-//                    print("!ОШИБКА в запросе лайка \(error)")
+                    //                    print("!ОШИБКА в запросе лайка \(error)")
                 }
             }
         }

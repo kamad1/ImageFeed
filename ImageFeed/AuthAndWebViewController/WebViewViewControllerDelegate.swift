@@ -1,9 +1,3 @@
-//
-//  WebViewViewControllerDelegate.swift
-//  ImageFeed
-//
-//  Created by Jedi on 05.08.2023.
-//
 
 import Foundation
 

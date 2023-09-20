@@ -27,7 +27,7 @@ public final class ImagesListCell: UITableViewCell {
     static let reuseIdentifier = Keys.reuseIdentifierName
     weak var delegate: ImagesListCellDelegate?
     
-   public override func prepareForReuse() {
+    public override func prepareForReuse() {
         super.prepareForReuse()
         removeGradient()
         cellImage.kf.cancelDownloadTask()
@@ -37,10 +37,7 @@ public final class ImagesListCell: UITableViewCell {
 extension ImagesListCell {
     func configCell(using photoStringURL: String, with indexPath: IndexPath, date: Date?) -> Bool {
         gradientBackGroundFor(backgroundLabel)
-//
-            dateLabel.text = DateService.shared.stringFromDate(date: date)
-//           
-        
+        dateLabel.text = DateService.shared.stringFromDate(date: date)
         var status = false
         
         guard let photoURL = URL(string: photoStringURL) else {

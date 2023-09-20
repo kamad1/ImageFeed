@@ -39,14 +39,14 @@ final class OAuth2Service {
                 guard let self = self else { return }
                 
                 switch result {
-                    case .success(let body):
-                        let authToken = body.accessToken
-                        self.authToken = authToken
-                        completion(.success(authToken))
-                        self.task = nil
-                    case .failure(let error):
-                        completion(.failure(error))
-                        self.lastCode = nil
+                case .success(let body):
+                    let authToken = body.accessToken
+                    self.authToken = authToken
+                    completion(.success(authToken))
+                    self.task = nil
+                case .failure(let error):
+                    completion(.failure(error))
+                    self.lastCode = nil
                 }
             }
         }
@@ -59,9 +59,8 @@ final class OAuth2Service {
 
 //MARK: - Private functions
 private extension OAuth2Service {
-
+    
     private func authTokenRequest(code: String) -> URLRequest? {
-//        URLRequest.makeHTTPRequest(
         let configuration = AuthConfiguration.standard
         return URLRequest.makeHTTPRequest(
             path: "/oauth/token"

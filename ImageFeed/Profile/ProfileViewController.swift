@@ -3,8 +3,6 @@ import UIKit
 import Kingfisher
 import WebKit
 
-//public protocol ProfileViewControllerProtocol: AnyObject {
-//     var presenter: ProfileViewPresenterProtocol? { get set }public
 public protocol ProfileViewControllerProtocol: AnyObject {
     func addButtonActionBeforeIos14(action: Selector)
     @available(iOS 14.0, *) func addButtonActionAfterIos14(logOutAction: UIAction)
@@ -17,18 +15,12 @@ public protocol ProfileViewControllerProtocol: AnyObject {
 final class ProfileViewController: UIViewController & ProfileViewControllerProtocol {
     
     private struct Keys {
-        //        static let main = "Main"
         static let logoutImageName = "logout_button"
         static let systemLogoutImageName = "ipad.and.arrow.forward"
-        //        static let logOutActionName = "showAlert"
         static let systemAvatarImageName = "person.crop.circle.fill"
-        //        static let avatarPlaceholderImageName = "avatar_placeholder"
-        //        static let authViewControllerName = "AuthViewController"
     }
-    //    var presenter: ProfileViewPresenterProtocol?
+    
     private var profileImageServiceObserver: NSObjectProtocol?
-    //    private let profileService = ProfileService.shared
-    //    private let profileImageService = ProfileImageService.shared
     private var label: UILabel?
     private let translucentGradient = TranslucentGradient()
     private var alertPresenter: AlertPresenter?
@@ -119,14 +111,9 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         
         view.addSubview(logOutButton)
         logoutButtonSetup()
-        
-        
-        
-        //        updateProfileDetails(profile: profileService.profile)
         presenter?.viewDidLoad()
         addGradients()
         alertPresenter = AlertPresenter(delagate: self)
-        //        addButtonAction()
     }
     
     
@@ -182,12 +169,6 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
         logOutButton.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor).isActive = true
         logOutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
     }
-    
-    //    @objc
-    //    func didTapLogoutButton() {
-    //        showAlertBeforeExit()
-    //    }
-    
 }
 
 extension ProfileViewController {
@@ -197,7 +178,6 @@ extension ProfileViewController {
         avatarImageView.kf.indicatorType = .activity
         avatarImageView.kf.setImage(
             with: url,
-            //            placeholder: avatarPlaceholderImage,
             placeholder: placeholder,
             options: [.processor(processor)]
         ){ [weak self] result in
@@ -207,7 +187,6 @@ extension ProfileViewController {
                 self.removeGradients()
             case .failure:
                 self.removeGradients()
-                //                avatarImageView.image = avatarPlaceholderImage
                 avatarImageView.image = placeholder
             }
         }
@@ -254,18 +233,6 @@ extension ProfileViewController {
         }
     }
     
-    //    func addButtonAction() {
-    //        if #available(iOS 14.0, *) {
-    //            let logOutAction = UIAction(title: Keys.logOutActionName) { [weak self] (ACTION) in
-    //                guard let self = self else { return }
-    //                self.showAlertBeforeExit()
-    //            }
-    //            logOutButton.addAction(logOutAction, for: .touchUpInside)
-    //        } else {
-    //            logOutButton.addTarget(ProfileViewController.self,
-    //                                   action: #selector(didTapLogoutButton),
-    //                                   for: .touchUpInside)
-    //        }
     func addButtonActionBeforeIos14(action: Selector) {
         logOutButton.addTarget(
             ProfileViewController.self,
@@ -301,16 +268,6 @@ extension ProfileViewController {
             self.alertPresenter?.show(alert)
         }
     }
-    
-    
-    //    func logOut() {
-    //        OAuth2TokenStorage().token = nil
-    //        WebViewViewController.cleanCookies()
-    //
-    //        guard let window = UIApplication.shared.windows.first else {
-    //            assertionFailure("Invalid Configuration")
-    //            return
-    //        }
     
     func logOut(window: UIWindow) {
         window.rootViewController = SplashViewController()

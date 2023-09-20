@@ -10,14 +10,13 @@ public protocol ImagesListViewPresenterProtocol {
     func getPhoto(indexPath: IndexPath) -> Photo?
     func fetchPhotosNextPage(indexPath: IndexPath)
     func changeLike(indexPath: IndexPath?, cell: ImagesListCell)
-//    func getCellHeight(indexPath: IndexPath, tableViewWidth: CGFloat) -> CGFloat
     func getCellHeight(indexPath: IndexPath,
-                            tableViewWidth: CGFloat,
-                            imageInsetsLeft: CGFloat,
-                            imageInsetsRight: CGFloat,
-                            imageInsetsTop: CGFloat,
-                            imageInsetsBottom: CGFloat
-         ) -> CGFloat
+                       tableViewWidth: CGFloat,
+                       imageInsetsLeft: CGFloat,
+                       imageInsetsRight: CGFloat,
+                       imageInsetsTop: CGFloat,
+                       imageInsetsBottom: CGFloat
+    ) -> CGFloat
 }
 
 final class ImagesListViewPresenter: ImagesListViewPresenterProtocol {
@@ -84,32 +83,26 @@ final class ImagesListViewPresenter: ImagesListViewPresenterProtocol {
             case .success(let isLiked):
                 self.photos[indexPath.row].isLiked = isLiked
                 cell.setIsLiked(isLiked)
-//                UIBlockingProgressHUD.dismiss()
             case .failure:
-//                UIBlockingProgressHUD.dismiss()
                 view?.showError()
             }
         }
     }
     
-//    func getCellHeight(indexPath: IndexPath, tableViewWidth: CGFloat) -> CGFloat {
     func getCellHeight(
-             indexPath: IndexPath,
-             tableViewWidth: CGFloat,
-             imageInsetsLeft: CGFloat,
-             imageInsetsRight: CGFloat,
-             imageInsetsTop: CGFloat,
-             imageInsetsBottom: CGFloat
-         ) -> CGFloat {
+        indexPath: IndexPath,
+        tableViewWidth: CGFloat,
+        imageInsetsLeft: CGFloat,
+        imageInsetsRight: CGFloat,
+        imageInsetsTop: CGFloat,
+        imageInsetsBottom: CGFloat
+    ) -> CGFloat {
         let image = photos[indexPath.row]
         
-//        let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
-//        let imageViewWidth = tableViewWidth - imageInsets.left - imageInsets.right
-             let imageViewWidth = tableViewWidth - imageInsetsLeft - imageInsetsRight
+        let imageViewWidth = tableViewWidth - imageInsetsLeft - imageInsetsRight
         let imageWidth = image.size.width
         let scale = imageViewWidth / imageWidth
-//        let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
-             let cellHeight = image.size.height * scale + imageInsetsTop + imageInsetsBottom
+        let cellHeight = image.size.height * scale + imageInsetsTop + imageInsetsBottom
         return cellHeight
     }
 }

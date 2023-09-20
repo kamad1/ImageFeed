@@ -1,9 +1,3 @@
-//
-//  OAuth2TokenResponseBody.swift
-//  ImageFeed
-//
-//  Created by Jedi on 18.08.2023.
-//
 
 import Foundation
 
