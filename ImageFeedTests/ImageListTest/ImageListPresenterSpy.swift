@@ -1,7 +1,11 @@
-import UIKit
+import Foundation
 import ImageFeed
 
 final class ImageListPresenterSpy: ImagesListViewPresenterProtocol {
+    func getCellHeight(indexPath: IndexPath, tableViewWidth: CGFloat, imageInsetsLeft: CGFloat, imageInsetsRight: CGFloat, imageInsetsTop: CGFloat, imageInsetsBottom: CGFloat) -> CGFloat {
+        return CGFloat()
+    }
+    
      var view: ImageFeed.ImagesListViewControllerProtocol?
      var configureImageListCalled: Bool = false
 
@@ -33,7 +37,7 @@ final class ImageListPresenterSpy: ImagesListViewPresenterProtocol {
 
      }
 
-     func getCellHeight(indexPath: IndexPath, tableViewWidth: CGFloat) -> CGFloat {
-         return CGFloat()
-     }
+//     func getCellHeight(indexPath: IndexPath, tableViewWidth: CGFloat) -> CGFloat {
+//         return CGFloat()
+//     }
  }

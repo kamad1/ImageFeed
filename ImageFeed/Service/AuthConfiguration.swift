@@ -5,7 +5,7 @@ import Foundation
 let DefaultBaseURL = URL(string: "https://api.unsplash.com")
 let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
 
-let defaultBaseURL = URL(string: "https://api.unsplash.com")
+//let defaultBaseURL = URL(string: "https://api.unsplash.com")
 
 
 struct AuthConfiguration {
