@@ -37,7 +37,8 @@ final class ImageListPresenterSpy: ImagesListViewPresenterProtocol {
 
      }
 
+
+ }
 //     func getCellHeight(indexPath: IndexPath, tableViewWidth: CGFloat) -> CGFloat {
 //         return CGFloat()
 //     }
- }
