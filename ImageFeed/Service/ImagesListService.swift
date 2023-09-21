@@ -120,7 +120,9 @@ final class ImagesListService {
             }
         }
         
-        self.likeTask?.resume()
+//        self.likeTask?.resume()
+        self.likeTask = likeTask
+        likeTask.resume()
     }
 }
 
