@@ -23,7 +23,7 @@ final class ImageFeedUITests: XCTestCase {
         
         loginTextField.tap()
         // указать почту
-        loginTextField.typeText("artkamadi@gmail.com")
+        loginTextField.typeText("")
         webView.tap()
         webView.swipeUp()
         
@@ -68,9 +68,9 @@ final class ImageFeedUITests: XCTestCase {
         sleep(3)
         app.tabBars.buttons.element(boundBy: 1).tap()
         //указать ФИО
-        XCTAssertTrue(app.staticTexts["Denis Sirota"].exists)
+        XCTAssertTrue(app.staticTexts[""].exists)
         //указать НИК
-        XCTAssertTrue(app.staticTexts["@kamad1"].exists)
+        XCTAssertTrue(app.staticTexts[""].exists)
         
         app.buttons["logOutButton"].tap()
         sleep(1)
