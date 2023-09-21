@@ -23,7 +23,7 @@ final class ImageFeedUITests: XCTestCase {
         
         loginTextField.tap()
         // указать почту
-        loginTextField.typeText("")
+        loginTextField.typeText("artkamadi@gmail.com")
         webView.tap()
         webView.swipeUp()
         
@@ -49,12 +49,14 @@ final class ImageFeedUITests: XCTestCase {
         let firstCell = tablesQuery.children(matching: .cell).element(boundBy: 0)
         firstCell.swipeUp()
         sleep(3)
-        let anotherCell = tablesQuery.children(matching: .cell).element(boundBy: 3)
+        
+        let anotherCell = tablesQuery.children(matching: .cell).element(boundBy: 1)
         anotherCell.buttons["LikeButton"].tap()
-        sleep(8)
+        sleep(5)
         anotherCell.buttons["LikeButton"].tap()
-        sleep(8)
+        sleep(5)
         anotherCell.tap()
+        sleep(2)
         let image = app.scrollViews.images.element(boundBy: 0)
         XCTAssertTrue(image.waitForExistence(timeout: 5))
         image.pinch(withScale: 3, velocity: 1)
@@ -66,9 +68,9 @@ final class ImageFeedUITests: XCTestCase {
         sleep(3)
         app.tabBars.buttons.element(boundBy: 1).tap()
         //указать ФИО
-        XCTAssertTrue(app.staticTexts[""].exists)
+        XCTAssertTrue(app.staticTexts["Denis Sirota"].exists)
         //указать НИК
-        XCTAssertTrue(app.staticTexts[""].exists)
+        XCTAssertTrue(app.staticTexts["@kamad1"].exists)
         
         app.buttons["logOutButton"].tap()
         sleep(1)

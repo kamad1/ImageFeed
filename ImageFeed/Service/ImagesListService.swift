@@ -62,7 +62,8 @@ final class ImagesListService {
                             object: self,
                             userInfo: [Keys.photos: self.photos])
                 case .failure:
-                    assertionFailure("Failed to load images")
+                assertionFailure("Failed to load images")
+
                 }
             }
         }
