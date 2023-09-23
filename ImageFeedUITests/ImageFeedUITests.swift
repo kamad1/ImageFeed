@@ -26,16 +26,17 @@ final class ImageFeedUITests: XCTestCase {
         // указать почту
         sleep(3)
         loginTextField.typeText("")
-        sleep(3)
+        sleep(1)
         XCUIApplication().toolbars.buttons["Done"].tap()
         
         let passwordTextField = webView.descendants(matching: .secureTextField).element
-        XCTAssertTrue(passwordTextField.waitForExistence(timeout: 5))
+        XCTAssertTrue(passwordTextField.waitForExistence(timeout: 8))
         
+//        passwordTextField.tap()
+//
+//        XCUIApplication().toolbars.buttons["Done"].tap()
         passwordTextField.tap()
-      
-        XCUIApplication().toolbars.buttons["Done"].tap()
-        passwordTextField.tap()
+        sleep(2)
         //указать пароль
         passwordTextField.typeText("")
         sleep(3)
