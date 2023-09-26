@@ -88,7 +88,11 @@ extension ImagesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        presenter?.fetchPhotosNextPage(indexPath: indexPath)
+        if let visibleRows = tableView.indexPathsForVisibleRows, indexPath == visibleRows.last {
+            presenter?.fetchPhotosNextPage(indexPath: indexPath)
+        }
+        
+//        presenter?.fetchPhotosNextPage(indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
