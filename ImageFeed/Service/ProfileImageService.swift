@@ -1,9 +1,3 @@
-//
-//  ProfileImageService.swift
-//  ImageFeed
-//
-//  Created by Jedi on 22.08.2023.
-//
 
 import Foundation
 
@@ -45,23 +39,23 @@ final class ProfileImageService {
                 guard let self = self else { return }
                 
                 switch result {
-                    case .success(let body):
-                        let avatarURL = body.profileImage?.small
-                        
-                        guard let avatarURL = avatarURL else { return }
-                        self.avatarURL = avatarURL
-                        
-                        completion(.success(avatarURL))
-                        NotificationCenter.default
-                            .post(
-                                name: ProfileImageService.DidChangeNotification,
-                                object: self,
-                                userInfo: [Keys.paramNameURL: avatarURL])
-                        
-                        self.task = nil
-                    case .failure(let error):
-                        completion(.failure(error))
-                        self.avatarURL = nil
+                case .success(let body):
+                    let avatarURL = body.profileImage?.small
+                    
+                    guard let avatarURL = avatarURL else { return }
+                    self.avatarURL = avatarURL
+                    
+                    completion(.success(avatarURL))
+                    NotificationCenter.default
+                        .post(
+                            name: ProfileImageService.DidChangeNotification,
+                            object: self,
+                            userInfo: [Keys.paramNameURL: avatarURL])
+                    
+                    self.task = nil
+                case .failure(let error):
+                    completion(.failure(error))
+                    self.avatarURL = nil
                 }
             }
         }
@@ -73,7 +67,7 @@ final class ProfileImageService {
 
 //MARK: - Private functions
 private extension ProfileImageService {
-   
+    
     func profileImageURLRequest(userName: String) -> URLRequest? {
         URLRequest.makeHTTPRequest(
             path: "/users/\(userName)",

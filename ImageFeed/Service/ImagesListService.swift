@@ -14,6 +14,7 @@ final class ImagesListService {
     private let token = OAuth2TokenStorage().token
     private var lastLoadedPage: Int?
     private var task: URLSessionTask?
+    private var likeTask: URLSessionTask?
     private (set) var photos: [Photo] = []
     static let DidChangeNotification = Notification.Name(rawValue: Keys.nameNotification)
     
@@ -23,6 +24,7 @@ final class ImagesListService {
         
         assert(Thread.isMainThread)
         if task != nil { return }
+        task?.cancel()
         guard let token = token else { return }
         
         var requestPhotos = photosRequest(page: nextPage, perPage: 10)
@@ -33,6 +35,7 @@ final class ImagesListService {
         let task = urlSession.objectTask(for: requestPhotos) { [weak self] (result: Result<[PhotoResult], Error>) in
             DispatchQueue.main.async {
                 guard let self = self else { return }
+                self.task = nil
                 
                 switch result {
                 case .success(let body):
@@ -58,10 +61,9 @@ final class ImagesListService {
                             name: ImagesListService.DidChangeNotification,
                             object: self,
                             userInfo: [Keys.photos: self.photos])
-                    
-                    self.task = nil
                 case .failure:
-                    assertionFailure("Failed to load images")
+                assertionFailure("Failed to load images")
+
                 }
             }
         }
@@ -76,7 +78,8 @@ final class ImagesListService {
         _ completion: @escaping (Result<Bool, Error>) -> Void
     ) {
         assert(Thread.isMainThread)
-        if task != nil { return }
+        if likeTask != nil { return }
+        likeTask?.cancel()
         
         var requestLike = isLike ? unlikeRequest(photoId: photoId) : likeRequest(photoId: photoId)
         guard let token = token else { return }
@@ -84,9 +87,10 @@ final class ImagesListService {
         
         guard let requestLike = requestLike else { return }
         
-        let task = urlSession.objectTask(for: requestLike) { [weak self] (result: Result<LikeResult, Error>) in
+        let likeTask = urlSession.objectTask(for: requestLike) { [weak self] (result: Result<LikeResult, Error>) in
             DispatchQueue.main.async {
                 guard let self = self else { return }
+                self.likeTask = nil
                 
                 switch result {
                 case .success(let body):
@@ -107,16 +111,18 @@ final class ImagesListService {
                     
                     completion(.success(likedByUser))
                     
-                    self.task = nil
+                    
                 case .failure(let error):
+                    
                     completion(.failure(error))
-//                    print("!ОШИБКА в запросе лайка \(error)")
+                    //                    print("!ОШИБКА в запросе лайка \(error)")
                 }
             }
         }
         
-        self.task = task
-        task.resume()
+//        self.likeTask?.resume()
+        self.likeTask = likeTask
+        likeTask.resume()
     }
 }
 
